@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area 2 AYM – Exam Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --gold: #d4a017;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --border: #30363d;
+            --accent: #10b981; /* Green accent from Bible Truths */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--muted);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin: 15px 0;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            background: rgba(212, 160, 23, 0.1);
+            color: var(--gold);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            background: var(--gold);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .card:hover .btn {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="favicon.png" alt="Description of image" width="200" height="150">
+            <h1>Examination Portal</h1>
+            <p>Select your course to begin the mock evaluation</p>
+        </div>
+
+        <div class="grid">
+            <a href="index2.html" class="card">
+                <span class="badge">History</span>
+                <h2>Denominational History</h2>
+                <p>Master the questions covering Adventist pioneers, the Great Disappointment, and organizational growth.</p>
+                <div class="btn">Start Denominational History Exam</div>
+            </a>
+
+            <a href="index1.html" class="card">
+                <span class="badge" style="color: var(--accent); background: rgba(16,185,129,0.1);">Doctrine</span>
+                <h2>Bible Doctrine</h2>
+                <p>Master the questions covering Adventist Doctrine.</p>
+                <div class="btn" style="background: var(--accent);">Start Truths Exam</div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

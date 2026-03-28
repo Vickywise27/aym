@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Area 2 AYM – Church Heritage Mock Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d4a017;--gold-l:#f0c040;
+  --navy:#0f1f3d;--navy2:#1a3260;
+  --blue:#2563eb;--green:#16a34a;--red:#dc2626;--orange:#ea580c;
+  --bg:#f8f9fc;--card:#ffffff;--text:#111827;--muted:#6b7280;--border:#e5e7eb;
+  --r:10px;--sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+}
+body.dark{--bg:#0d1117;--card:#161b22;--text:#e6edf3;--muted:#8b949e;--border:#30363d;--sh:0 1px 3px rgba(0,0,0,.4);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .2s,color .2s}
+
+/* COVER */
+#cover-page{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.2rem;}
+.c-logo{width:76px;height:76px;border-radius:50%;border:2px solid var(--gold-l);object-fit:contain;margin-bottom:1.1rem;background:var(--navy2);}
+.c-title{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(1.25rem,4vw,1.8rem);text-align:center;line-height:1.3;margin-bottom:.3rem;}
+.c-sub{color:rgba(255,255,255,.45);font-size:.82rem;text-align:center;margin-bottom:1.8rem;}
+.c-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.5rem;width:100%;max-width:400px;display:flex;flex-direction:column;gap:.95rem;}
+.lbl{display:block;color:rgba(255,255,255,.55);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;}
+.inp{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:.62rem .88rem;color:#fff;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;transition:border-color .15s;}
+.inp:focus{border-color:var(--gold-l);}
+.inp::placeholder{color:rgba(255,255,255,.28);}
+.inp option{background:var(--navy);color:#fff;}
+.cnt-row{display:flex;gap:.5rem;}
+.cnt-btn{flex:1;padding:.58rem .4rem;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);border-radius:8px;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;}
+.cnt-btn.on{background:var(--gold-l);border-color:var(--gold-l);color:var(--navy);}
+.err{color:#f87171;font-size:.73rem;margin-top:.2rem;}
+.btn-go{background:var(--gold-l);color:var(--navy);font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;border:none;border-radius:8px;padding:.78rem;cursor:pointer;width:100%;transition:opacity .15s;margin-top:.2rem;}
+.btn-go:hover{opacity:.87;}
+
+/* QUIZ */
+#quiz-page{display:none;min-height:100vh;padding-bottom:90px;}
+.qh{background:var(--navy);padding:.65rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 rgba(255,255,255,.06);}
+.qhl{display:flex;align-items:center;gap:.65rem;}
+.hl{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold-l);background:var(--navy2);}
+.ht{color:#fff;font-size:.8rem;font-weight:600;}
+.hs{color:rgba(255,255,255,.4);font-size:.65rem;}
+.tmr{display:flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:6px;padding:.28rem .65rem;}
+.tv{color:var(--gold-l);font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums;}
+.tv.warn{color:#f87171;animation:p .7s infinite;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.35}}
+.dbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:6px;padding:.28rem .6rem;color:rgba(255,255,255,.65);font-size:.7rem;cursor:pointer;transition:background .15s;}
+.dbtn:hover{background:rgba(255,255,255,.15);}
+.pb{height:3px;background:var(--border);}
+.pf{height:100%;background:var(--gold-l);transition:width .3s;}
+
+/* QUESTION */
+.qw{max-width:680px;margin:0 auto;padding:1.1rem .9rem;}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.3rem;box-shadow:var(--sh);}
+.qmeta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;}
+.qbadge{background:var(--navy);color:var(--gold-l);font-size:.67rem;font-weight:700;padding:.22rem .6rem;border-radius:20px;}
+.qcat{font-size:.65rem;color:var(--muted);}
+.qtxt{font-family:'Playfair Display',serif;font-size:.97rem;line-height:1.6;margin-bottom:1rem;}
+.opts{display:flex;flex-direction:column;gap:.5rem;}
+.opt{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem .8rem;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s,background .15s;background:var(--card);}
+.opt:hover{border-color:var(--gold);}
+.opt.sel{border-color:var(--blue);background:rgba(37,99,235,.06);}
+.opt input{display:none;}
+.ok{width:22px;height:22px;min-width:22px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--muted);transition:all .15s;}
+.opt.sel .ok{background:var(--blue);border-color:var(--blue);color:#fff;}
+.ot{font-size:.85rem;line-height:1.5;padding-top:1px;}
+.qbtns{display:flex;gap:.55rem;margin-top:.9rem;}
+.bn{flex:1;padding:.62rem;border-radius:8px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.bn:hover{border-color:var(--gold);}
+.bskip{color:var(--orange);border-color:rgba(234,88,12,.28);background:rgba(234,88,12,.04);}
+.bskip:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.bnext{background:var(--navy);color:#fff;border-color:var(--navy);}
+.bnext:hover{background:var(--navy2);border-color:var(--navy2);}
+
+/* NAV PANEL */
+#nav-panel{display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--card);border-top:1px solid var(--border);padding:.5rem .9rem .55rem;box-shadow:0 -2px 10px rgba(0,0,0,.09);}
+.nt{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;gap:.5rem;}
+.nleg{display:flex;gap:.65rem;}
+.nli{display:flex;align-items:center;gap:.28rem;font-size:.63rem;color:var(--muted);}
+.nd{width:8px;height:8px;border-radius:2px;}
+.nd-a{background:var(--blue);}
+.nd-s{background:var(--orange);}
+.nd-u{background:var(--border);border:1px solid #aaa;}
+.bsub{background:var(--green);color:#fff;border:none;border-radius:7px;padding:.36rem .85rem;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;}
+.bsub:hover{opacity:.84;}
+.nscroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.nscroll::-webkit-scrollbar{display:none;}
+.ngrid{display:flex;gap:.26rem;padding-bottom:1px;}
+.nb{width:25px;height:25px;min-width:25px;border-radius:5px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:.62rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;}
+.nb:hover{border-color:var(--gold);}
+.nb.ans{background:var(--blue);border-color:var(--blue);color:#fff;}
+.nb.ski{background:var(--orange);border-color:var(--orange);color:#fff;}
+.nb.cur{outline:2px solid var(--gold-l);outline-offset:1px;}
+
+/* RESULTS */
+#results-page{display:none;min-height:100vh;background:var(--bg);padding:1.3rem .9rem 3rem;}
+.rw{max-width:680px;margin:0 auto;}
+.rtb{display:flex;justify-content:flex-end;margin-bottom:.7rem;}
+.db2{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:.32rem .75rem;color:var(--text);font-size:.72rem;cursor:pointer;}
+.rh{background:var(--navy);border-radius:var(--r);padding:1.6rem 1.1rem;text-align:center;margin-bottom:1.1rem;}
+.rlogo{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold-l);background:var(--navy2);margin:0 auto .75rem;}
+.rname{font-family:'Playfair Display',serif;color:var(--gold-l);font-size:1.15rem;}
+.rdist{color:rgba(255,255,255,.4);font-size:.75rem;margin-bottom:.9rem;}
+.sring{width:105px;height:105px;border-radius:50%;background:conic-gradient(var(--gold-l) 0deg,rgba(240,192,64,.15) 0deg);display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;}
+.si{width:82px;height:82px;border-radius:50%;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.sp{font-family:'Playfair Display',serif;color:var(--gold-l);font-size:1.4rem;line-height:1;}
+.sl{font-size:.58rem;color:rgba(255,255,255,.38);letter-spacing:.1em;}
+.sts{display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap;}
+.sn{font-size:1.3rem;font-weight:700;color:var(--gold-l);}
+.sk{font-size:.62rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.07em;}
+.rtitle{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;}
+.rq{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1rem;margin-bottom:.6rem;border-left:3px solid var(--border);}
+.rq.c{border-left-color:var(--green);}
+.rq.w{border-left-color:var(--red);}
+.rq.s{border-left-color:var(--orange);}
+.rqt{display:flex;align-items:center;justify-content:space-between;margin-bottom:.45rem;}
+.rqn{font-size:.65rem;color:var(--muted);font-weight:600;}
+.rqs{font-size:.62rem;font-weight:700;padding:.16rem .5rem;border-radius:20px;}
+.rqs.c{background:rgba(22,163,74,.1);color:var(--green);}
+.rqs.w{background:rgba(220,38,38,.1);color:var(--red);}
+.rqs.s{background:rgba(234,88,12,.1);color:var(--orange);}
+.rqq{font-size:.82rem;margin-bottom:.55rem;line-height:1.55;}
+.ra{font-size:.75rem;padding:.3rem .65rem;border-radius:6px;margin-bottom:.28rem;}
+.ra.yw{background:rgba(220,38,38,.07);color:var(--red);}
+.ra.co{background:rgba(22,163,74,.07);color:var(--green);}
+.ra.yc{background:rgba(22,163,74,.07);color:var(--green);}
+.rref{font-size:.68rem;color:var(--muted);margin-top:.3rem;}
+.btn-rt{display:block;margin:1.4rem auto 0;background:var(--navy);color:#fff;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;padding:.72rem 2rem;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;}
+.btn-rt:hover{opacity:.84;}
+
+@media(max-width:480px){.qbtns{flex-wrap:wrap;}.bn{min-width:75px;}.c-card{padding:1.1rem;}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div id="cover-page">
+  <img src="/mnt/user-data/uploads/20241021_150359.png" class="c-logo" alt="Logo" onerror="this.style.display='none'">
+  <h1 class="c-title">Area 2 Youth Ministry<br>Church Heritage</h1>
+  <p class="c-sub">Denominational History Mock Examination</p>
+
+  <div class="c-card">
+    <div>
+      <label class="lbl" for="cand-name">Full Name</label>
+      <input class="inp" type="text" id="cand-name" placeholder="e.g. Chisom Nwachukwu" autocomplete="name">
+      <div class="err" id="err-name"></div>
+    </div>
+    <div>
+      <label class="lbl" for="cand-district">District / Group</label>
+      <select class="inp" id="cand-district">
+        <option value="">— Select district —</option>
+        <option>Iheorji-Umuogele District</option>
+        <option>Eziukwu-Aba District</option>
+        <option>Umuagbaghi District</option>
+        <option>Port Harcourt Rd Group</option>
+        <option>Umunisi Group</option>
+      </select>
+      <div class="err" id="err-district"></div>
+    </div>
+    <div>
+      <label class="lbl">Number of Questions</label>
+      <div class="cnt-row">
+        <button class="cnt-btn on" onclick="setCount(50,this)">50 Qs</button>
+        <button class="cnt-btn" onclick="setCount(100,this)">100 Qs</button>
+        <button class="cnt-btn" onclick="setCount(150,this)">150 Qs</button>
+      </div>
+      <div style="color:rgba(255,255,255,.35);font-size:.68rem;margin-top:.35rem;">Questions are randomly selected from the full bank each session.</div>
+    </div>
+    <button class="btn-go" onclick="startQuiz()">Begin Examination ▸</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz-page">
+  <div class="qh">
+    <div class="qhl">
+      <img src="/mnt/user-data/uploads/20241021_150359.png" class="hl" alt="Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="ht">Area 2 AYM</div>
+        <div class="hs" id="header-sub">Church Heritage</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.45rem;align-items:center;">
+      <div class="tmr">⏱ <span class="tv" id="timer-val">60:00</span></div>
+      <button class="dbtn" onclick="toggleDark()">🌙</button>
+    </div>
+  </div>
+  <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
+
+  <div class="qw">
+    <div class="qcard">
+      <div class="qmeta">
+        <span class="qbadge" id="q-badge">Q 1 / 50</span>
+        <span class="qcat" id="q-cat"></span>
+      </div>
+      <div class="qtxt" id="q-text"></div>
+      <div class="opts" id="opts"></div>
+      <div class="qbtns">
+        <button class="bn" onclick="navigate(-1)">◀ Prev</button>
+        <button class="bn bskip" onclick="skipQ()">↷ Skip</button>
+        <button class="bn bnext" onclick="navigate(1)">Next ▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV PANEL — outside all page divs -->
+<div id="nav-panel">
+  <div class="nt">
+    <div class="nleg">
+      <div class="nli"><div class="nd nd-a"></div>Answered</div>
+      <div class="nli"><div class="nd nd-s"></div>Skipped</div>
+      <div class="nli"><div class="nd nd-u"></div>Unanswered</div>
+    </div>
+    <button class="bsub" onclick="confirmSubmit()">✔ Submit</button>
+  </div>
+  <div class="nscroll"><div class="ngrid" id="nav-grid"></div></div>
+</div>
+
+<!-- RESULTS -->
+<div id="results-page">
+  <div class="rw">
+    <div class="rtb"><button class="db2" onclick="toggleDark()">🌙 Dark Mode</button></div>
+    <div class="rh">
+      <img src="/mnt/user-data/uploads/20241021_150359.png" class="rlogo" alt="Logo" onerror="this.style.display='none'">
+      <div class="rname" id="res-name"></div>
+      <div class="rdist" id="res-dist"></div>
+      <div class="sring" id="score-ring">
+        <div class="si">
+          <div class="sp" id="score-pct">0%</div>
+          <div class="sl">SCORE</div>
+        </div>
+      </div>
+      <div class="sts">
+        <div><div class="sn" id="s-correct" style="color:#4ade80"></div><div class="sk">Correct</div></div>
+        <div><div class="sn" id="s-wrong" style="color:#f87171"></div><div class="sk">Wrong</div></div>
+        <div><div class="sn" id="s-skipped" style="color:#fb923c"></div><div class="sk">Skipped</div></div>
+      </div>
+    </div>
+    <div class="rtitle">📖 Review &amp; Corrections</div>
+    <div id="review-list"></div>
+    <button class="btn-rt" onclick="retake()">↺ Retake</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// FULL QUESTION BANK (232 questions)
+// ════════════════════════════════════════
+const ALL_Q = [
+  // Section 1 – The Christian Church
+  {cat:"Section 1 – The Christian Church",q:"What is the seventh stage of the church described in the Church Heritage Manual?",o:["The Church of the Dark Ages","The Church of the Reformation","The Church of the Adventists","The Church of the Remnant"],a:2},
+  {cat:"Section 1 – The Christian Church",q:"In which year did papal power become supreme, beginning a rule of 1,260 years?",o:["476 A.D.","538 A.D.","1798 A.D.","1517 A.D."],a:1},
+  {cat:"Section 1 – The Christian Church",q:"Who became the first 'general president' of the apostolic church after Christ's ascension?",o:["Peter","Paul","James","John"],a:2},
+  {cat:"Section 1 – The Christian Church",q:"Martin Luther nailed his 95 Theses to the Wittenberg Castle Church door on which date?",o:["October 31, 1517","November 13, 1517","October 22, 1517","September 16, 1620"],a:0},
+  {cat:"Section 1 – The Christian Church",q:"Who is called 'the father of modern missions'?",o:["Robert Moffat","David Livingstone","William Carey","Adoniram Judson"],a:2},
+  {cat:"Section 1 – The Christian Church",q:"The Waldenses resisted papal power from their home base in which geographical region?",o:["The plains of Germany","The mountains of northern Italy","The shores of the Mediterranean","The forests of Bohemia"],a:1},
+  {cat:"Section 1 – The Christian Church",q:"What year did the Roman Empire fall to barbarian tribes?",o:["A.D. 313","A.D. 476","A.D. 538","A.D. 1000"],a:1},
+  {cat:"Section 1 – The Christian Church",q:"John Huss was burned at the stake for exposing which church's unscriptural teachings?",o:["The Lutheran Church","The Anglican Church","The Roman Catholic Church","The Waldensian Church"],a:2},
+  {cat:"Section 1 – The Christian Church",q:"William Tyndale gave common people of which country the Bible in their own language?",o:["Germany","France","Switzerland","England"],a:3},
+  {cat:"Section 1 – The Christian Church",q:"The Mayflower carried the Pilgrim Fathers to which country in 1620?",o:["Canada","United States of America","Australia","South Africa"],a:1},
+  // Section 2 – Heralds of the Advent
+  {cat:"Section 2 – Heralds of the Advent",q:"What was the FIRST of the three spectacular signs that appeared between 1755 and 1843?",o:["The Dark Day","The Lisbon Earthquake","The falling of the stars","The end of the 1260-year prophecy"],a:1},
+  {cat:"Section 2 – Heralds of the Advent",q:"On what date did the famous 'Dark Day' occur over the northeastern states of America?",o:["November 13, 1833","May 19, 1780","October 22, 1844","November 25, 1833"],a:1},
+  {cat:"Section 2 – Heralds of the Advent",q:"The great meteor shower fulfilling Revelation 6:13 occurred on which date?",o:["November 13, 1833","November 25, 1833","May 19, 1780","November 1, 1755"],a:0},
+  {cat:"Section 2 – Heralds of the Advent",q:"William Miller studied the 2300-day prophecy from which books of the Bible?",o:["Ezekiel and Revelation","Daniel 8 and 9","Isaiah and Daniel","Matthew and Luke"],a:1},
+  {cat:"Section 2 – Heralds of the Advent",q:"Joshua V. Himes began publishing the Signs of the Times in which city in 1840?",o:["New York","Philadelphia","Boston","Washington D.C."],a:2},
+  {cat:"Section 2 – Heralds of the Advent",q:"How many lectures did William Miller give over ten years of ministry?",o:["More than 1,000","More than 2,000","More than 3,000","More than 5,000"],a:2},
+  {cat:"Section 2 – Heralds of the Advent",q:"Joseph Wolff was known as the 'missionary to the world.' How many languages did he speak?",o:["Seven","Ten","Twelve","Fourteen"],a:3},
+  {cat:"Section 2 – Heralds of the Advent",q:"Charles Fitch developed the first prophetic charts in 1842, introducing which concept to public evangelism?",o:["Tent meetings","Audiovisuals","Camp meetings","Door-to-door canvassing"],a:1},
+  {cat:"Section 2 – Heralds of the Advent",q:"Which Advent ambassador translated Lacunza's 'Coming of the Messiah' from Spanish into English?",o:["Henry Drummond","Robert Winter","Edward Irving","Johann Bengel"],a:2},
+  {cat:"Section 2 – Heralds of the Advent",q:"Miller studied for how many years (1816–1831) before beginning public preaching?",o:["Ten","Twelve","Fifteen","Twenty"],a:2},
+  // Section 3 – Birth of the Remnant Church
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Who had the cornfield experience on October 23, 1844, receiving insight about the heavenly sanctuary?",o:["Joseph Bates","James White","Hiram Edson","Frederick Wheeler"],a:2},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Mrs. Rachel Oakes was a member of which denomination who introduced the Sabbath truth to the Adventists?",o:["Methodist","Baptist","Seventh Day Baptist","Presbyterian"],a:2},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"In what year did Ellen Harmon receive her first vision?",o:["1843","1844","1845","1846"],a:1},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"James and Ellen White were united in marriage on which date?",o:["August 30, 1846","October 22, 1844","December 30, 1849","April 18, 1847"],a:0},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"How old was Ellen Harmon when she received her first vision?",o:["Fifteen","Seventeen","Nineteen","Twenty-one"],a:1},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"The 'Midnight Cry' message focused on what date as the end of the 2300-day prophecy?",o:["March 21, 1844","April 18, 1844","October 22, 1844","October 31, 1844"],a:2},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Ellen White was born on November 26, 1827, near which city in Maine?",o:["Augusta","Portland","Bath","Bangor"],a:1},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Which of these is NOT one of the four Bible tests for a true prophet?",o:["Isaiah 8:20 – alignment with law and testimony","Matthew 7:20 – known by fruits","John 3:16 – belief in the gospel","1 John 4:2 – Jesus came in the flesh"],a:2},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Ellen White held a large Bible in her extended hand for half an hour while in vision. How much did it weigh?",o:["Ten pounds","Fourteen pounds","Eighteen pounds","Twenty pounds"],a:2},
+  {cat:"Section 3 – Birth of the Remnant Church",q:"Joseph Bates was the first future SDA leader to accept which truth?",o:["The sanctuary doctrine","The Sabbath truth","The state of the dead","The second advent"],a:1},
+  // Section 4 – The Remnant Church Organized
+  {cat:"Section 4 – The Remnant Church Organized",q:"Who was elected as the first president of the General Conference in 1863?",o:["James White","Joseph Bates","John Byington","J. N. Andrews"],a:2},
+  {cat:"Section 4 – The Remnant Church Organized",q:"In what year was the name 'Seventh-day Adventist' officially adopted?",o:["1858","1860","1861","1863"],a:1},
+  {cat:"Section 4 – The Remnant Church Organized",q:"How many members and churches did the SDA Church have at its official organization in 1863?",o:["1,500 members in 75 churches","3,555 members in 125 churches","5,000 members in 200 churches","7,000 members in 150 churches"],a:1},
+  {cat:"Section 4 – The Remnant Church Organized",q:"The first SDA tent meeting (1854) was conducted by Loughborough and which other minister?",o:["J. N. Andrews","M. E. Cornell","James White","Uriah Smith"],a:1},
+  {cat:"Section 4 – The Remnant Church Organized",q:"In 1855 the SDA press moved to which city in Michigan?",o:["Detroit","Lansing","Ann Arbor","Battle Creek"],a:3},
+  {cat:"Section 4 – The Remnant Church Organized",q:"What was the original name of what is today known as the Adventist Review?",o:["The Present Truth","Signs of the Times","Second Advent Review and Sabbath Herald","The Midnight Cry"],a:2},
+  {cat:"Section 4 – The Remnant Church Organized",q:"The early plan for church finance adopted in 1859 was called what?",o:["Tithing","Systematic Benevolence","Free-will offerings","Mission Ingathering"],a:1},
+  {cat:"Section 4 – The Remnant Church Organized",q:"The General Conference constitution adopted in 1863 contained how many articles?",o:["Five","Seven","Nine","Twelve"],a:2},
+  {cat:"Section 4 – The Remnant Church Organized",q:"J. N. Andrews was the third GC president and also the first official what?",o:["SDA college founder","Overseas missionary","Hymnal writer","Sabbath School organizer"],a:1},
+  // Section 5
+  {cat:"Section 5 – Expansion and Reform",q:"The first SDA camp meeting was held in which year?",o:["1864","1866","1868","1870"],a:2},
+  {cat:"Section 5 – Expansion and Reform",q:"What was the first SDA health institution called when opened in 1866?",o:["Battle Creek Sanitarium","Western Health Reform Institute","Battle Creek Medical School","Eastern Health Institute"],a:1},
+  {cat:"Section 5 – Expansion and Reform",q:"Who founded the first officially sponsored SDA school in 1872 at Battle Creek?",o:["James White","Goodloe H. Bell","John Byington","George Butler"],a:1},
+  {cat:"Section 5 – Expansion and Reform",q:"In 1864, what status did the US government grant to SDA members in the Civil War?",o:["Exempt status","Noncombatant status","Full military exemption","Honorary citizenship"],a:1},
+  // Section 6
+  {cat:"Section 6 – Worldwide Vision",q:"J. N. Andrews was sent as the first official SDA overseas missionary in 1874 to which country?",o:["England","Germany","France","Switzerland"],a:3},
+  {cat:"Section 6 – Worldwide Vision",q:"Who was the first missionary to take the SDA message to Scandinavia in 1877?",o:["D. T. Bourdeau","John Matteson","William Ings","Philipp Reiswig"],a:1},
+  // Section 7
+  {cat:"Section 7 – Significant Advances",q:"The first youth society was organized in 1879 by Harry Fenner and which other youth?",o:["James Kern","Luther Warren","John Hancock","Leo Ranzolin"],a:1},
+  {cat:"Section 7 – Significant Advances",q:"How old was Luther Warren when he co-organized the first youth society in 1879?",o:["12","14","16","17"],a:1},
+  {cat:"Section 7 – Significant Advances",q:"The tithing system replaced the Systematic Benevolence plan in which year?",o:["1874","1876","1878","1880"],a:2},
+  {cat:"Section 7 – Significant Advances",q:"The historic 1888 General Conference session was held in which city?",o:["Battle Creek","Washington D.C.","Minneapolis","Boston"],a:2},
+  {cat:"Section 7 – Significant Advances",q:"The first SDA college outside North America opened near Cape Town in which year?",o:["1888","1890","1893","1897"],a:2},
+  {cat:"Section 7 – Significant Advances",q:"The first Union Conference was organized in which country in 1894?",o:["South Africa","England","Germany","Australia"],a:3},
+  {cat:"Section 7 – Significant Advances",q:"Fire destroyed the Battle Creek Sanitarium main building in which month and year?",o:["February 1902","March 1902","December 1902","January 1903"],a:0},
+  {cat:"Section 7 – Significant Advances",q:"Avondale College in Australia was opened in which year?",o:["1893","1895","1897","1900"],a:2},
+  // Section 8
+  {cat:"Section 8 – Mission Expansion",q:"In which year was the GC Youth Department formally organized, and who was its first director?",o:["1905, Elder Daniells","1907, Elder M. E. Kern","1910, Elder Spicer","1912, Elder Haskell"],a:1},
+  {cat:"Section 8 – Mission Expansion",q:"What medical institution opened in Loma Linda, California in 1910?",o:["Battle Creek Sanitarium","White Memorial Hospital","College of Medical Evangelists","Loma Linda Hospital"],a:2},
+  {cat:"Section 8 – Mission Expansion",q:"What were Ellen White's last spoken words before she died on July 16, 1915?",o:["I know in whom I have believed","Be true to God till death","The Advent message must go","Praise God from whom all blessings flow"],a:0},
+  {cat:"Section 8 – Mission Expansion",q:"How many pages did Ellen White write during her seventy years of ministry?",o:["More than 50,000","More than 75,000","More than 100,000","More than 150,000"],a:2},
+  // Section 9
+  {cat:"Section 9 – Progress Despite Reverses",q:"Leo Halliwell's famous medical launch on the Amazon River was named what?",o:["Amazon I","Luzeiro I","River Light I","Healing Star"],a:1},
+  {cat:"Section 9 – Progress Despite Reverses",q:"H. M. S. Richards pioneered religious radio broadcasting with his first broadcast in which year?",o:["1924","1926","1928","1930"],a:1},
+  {cat:"Section 9 – Progress Despite Reverses",q:"The first conference-sponsored Pathfinder Club was born in which US state in 1946?",o:["Michigan","Wisconsin","California","Massachusetts"],a:2},
+  // Section 10
+  {cat:"Section 10 – Consolidation & Expansion",q:"Faith for Today, the first SDA television broadcast, began in New York in which year?",o:["1948","1950","1952","1955"],a:1},
+  {cat:"Section 10 – Consolidation & Expansion",q:"The Pathfinder Club was officially adopted by the General Conference in which year?",o:["1946","1948","1950","1953"],a:2},
+  {cat:"Section 10 – Consolidation & Expansion",q:"World SDA membership topped 1 million in which year?",o:["1955","1957","1959","1961"],a:2},
+  // Section 11
+  {cat:"Section 11 – Finishing the Gospel Commission",q:"Based on 1997 data, how many persons were joining the SDA church every hour?",o:["More than 50","More than 65","More than 85","More than 100"],a:2},
+  {cat:"Section 11 – Finishing the Gospel Commission",q:"What does ADRA stand for?",o:["Adventist Development and Relief Agency","Adventist Disaster and Rescue Association","Adventist Development and Rehabilitation Alliance","Adventist Disaster Relief Agency"],a:0},
+  {cat:"Section 11 – Finishing the Gospel Commission",q:"By 1998, SDA world membership had passed what mark?",o:["5 million","8 million","10 million","12 million"],a:2},
+  // Section 12
+  {cat:"Section 12 – Departments of the Church",q:"What is the mission statement of the Communication Department?",o:["Reaching the World","Building bridges of hope","Light to the world","Truth for this time"],a:1},
+  {cat:"Section 12 – Departments of the Church",q:"The Youth Department was formerly known by which abbreviated name?",o:["JMV Department","AY Department","MV Department","SDA Youth"],a:2},
+  {cat:"Section 12 – Departments of the Church",q:"George King was the first literature evangelist, beginning his work in which year?",o:["1874","1876","1878","1881"],a:2},
+  {cat:"Section 12 – Departments of the Church",q:"Women's Ministries became a full GC department in which year?",o:["1990","1993","1995","1998"],a:2},
+  {cat:"Section 12 – Departments of the Church",q:"The Adventurer Club serves children of which age range?",o:["Ages 4–6","Ages 6–9","Ages 8–12","Ages 10–14"],a:1},
+  // Section 13
+  {cat:"Section 13 – World Divisions",q:"Where is the Inter-American Division (IAD) headquarters located?",o:["Mexico City","Panama City","San José, Costa Rica","Miami, Florida"],a:3},
+  {cat:"Section 13 – World Divisions",q:"The South American Division has its offices in which city?",o:["São Paulo","Rio de Janeiro","Brasilia","Buenos Aires"],a:2},
+  // Section 14
+  {cat:"Section 14 – GC Presidents",q:"John Byington became the first GC president at what age?",o:["Sixty-one","Sixty-five","Seventy-one","Seventy-five"],a:2},
+  {cat:"Section 14 – GC Presidents",q:"Arthur G. Daniells served as GC president longer than any other. How many years?",o:["Fifteen","Eighteen","Twenty-one","Twenty-five"],a:2},
+  {cat:"Section 14 – GC Presidents",q:"Who was the FIRST foreign-born person to become GC president?",o:["George Butler","Ole A. Olsen","Arthur Daniells","William Spicer"],a:1},
+  // Section 15
+  {cat:"Section 15 – Timeline",q:"In what year was the first periodical 'Present Truth' published?",o:["1847","1849","1850","1852"],a:1},
+  {cat:"Section 15 – Timeline",q:"In what year was the JMV Pledge and Law adopted?",o:["1917","1919","1922","1924"],a:1},
+  // General Knowledge
+  {cat:"General Knowledge",q:"Which characteristic of the Remnant Church is found in Revelation 14:12?",o:["They build great institutions","They have the faith of Jesus","They keep only Sunday","They do not baptize"],a:1},
+  {cat:"General Knowledge",q:"What does AY stand for?",o:["Adventist Youth","Advent Youth","Adventist Yearbook","Advent Years"],a:0},
+  {cat:"General Knowledge",q:"Ellen White's most famous book — the story of Christ's life — is called what?",o:["Steps to Christ","The Great Controversy","The Desire of Ages","Christ's Object Lessons"],a:2},
+  // Three Spectacular Signs
+  {cat:"Three Spectacular Signs",q:"What are the three spectacular signs that appeared between 1755 and 1843?",o:["The Lisbon Earthquake, the Dark Day, and the falling of the stars","The French Revolution, the Dark Day, and the meteor shower","The Lisbon Earthquake, the French Revolution, and the Dark Day","The falling of the stars, the French Revolution, and the Reformation"],a:0},
+  {cat:"Three Spectacular Signs",q:"On what exact date did the Lisbon Earthquake occur?",o:["November 1, 1755","October 22, 1755","November 13, 1755","September 1, 1755"],a:0},
+  {cat:"Three Spectacular Signs",q:"The Dark Day of May 19, 1780 caused the New England colonial legislature to do what?",o:["Declared a day of fasting","Adjourned thinking the end had come","Passed a law to light candles","Sent messengers to other colonies"],a:1},
+  {cat:"Three Spectacular Signs",q:"The meteor shower of November 13, 1833 was described as looking like what?",o:["Snowflakes in a blizzard","Fireflies swarming in summer","A fig tree casting its untimely figs","Rain pouring from the sky"],a:2},
+  {cat:"Three Spectacular Signs",q:"Which year marked the end of the 1,260-year papal supremacy?",o:["1776","1789","1798","1804"],a:2},
+  {cat:"Three Spectacular Signs",q:"The falling of the stars on November 13, 1833 fulfilled which Bible prophecy?",o:["Matthew 24:29","Revelation 6:13","Joel 2:31","Luke 21:25"],a:1},
+  // Midnight Cry & Great Disappointment
+  {cat:"Midnight Cry & Great Disappointment",q:"Who gave the famous 'Midnight Cry' message in the summer of 1844?",o:["William Miller","Joshua Himes","Samuel S. Snow","Charles Fitch"],a:2},
+  {cat:"Midnight Cry & Great Disappointment",q:"The Midnight Cry message was based on the parable in which Bible text?",o:["Matthew 25:1–13","Revelation 14:6–7","Daniel 8:14","Luke 12:35–40"],a:0},
+  {cat:"Midnight Cry & Great Disappointment",q:"What event became known as 'The Great Disappointment'?",o:["William Miller's death before the Advent","Christ not appearing on October 22, 1844","The collapse of the Millerite movement in 1843","The failure to organize the Adventist Church"],a:1},
+  {cat:"Midnight Cry & Great Disappointment",q:"After the Great Disappointment, Hiram Edson's insight explained that Christ entered which place?",o:["The earthly temple in Jerusalem","The hearts of believers","The Most Holy Place of the heavenly sanctuary","The earth as the sanctuary"],a:2},
+  {cat:"Midnight Cry & Great Disappointment",q:"What did most Millerites do after the Great Disappointment of October 22, 1844?",o:["Joined the Catholic Church","Abandoned their Advent faith entirely","Continued studying and eventually formed the SDA Church","Emigrated to other countries"],a:1},
+  {cat:"Midnight Cry & Great Disappointment",q:"Samuel S. Snow's October 22, 1844 date was based on the Jewish calendar's which annual feast?",o:["Passover","Feast of Tabernacles","Day of Atonement","Feast of Weeks"],a:2},
+  // EGW Life
+  {cat:"Ellen G. White – Life & Biography",q:"What was the name of Ellen White's twin sister?",o:["Sarah Harmon","Elizabeth Harmon","Mary Harmon","Anna Harmon"],a:0},
+  {cat:"Ellen G. White – Life & Biography",q:"At what age was Ellen Harmon struck by a stone thrown by a classmate?",o:["Seven","Nine","Twelve","Fourteen"],a:1},
+  {cat:"Ellen G. White – Life & Biography",q:"Ellen White's first vision came in December 1844. Where was she?",o:["In her bedroom in Portland","At a prayer meeting at a friend's home","In a cornfield","At the Battle Creek church"],a:1},
+  {cat:"Ellen G. White – Life & Biography",q:"How many visions is Ellen White estimated to have received during her lifetime?",o:["About 500","About 1,000","About 2,000","About 3,000"],a:2},
+  {cat:"Ellen G. White – Life & Biography",q:"How many years did Ellen White spend in Australia?",o:["Five","Seven","Nine","Twelve"],a:2},
+  {cat:"Ellen G. White – Life & Biography",q:"Ellen White died on July 16, 1915. How old was she?",o:["83","85","87","89"],a:2},
+  {cat:"Ellen G. White – Life & Biography",q:"How many children did James and Ellen White have together?",o:["Two","Three","Four","Five"],a:2},
+  {cat:"Ellen G. White – Life & Biography",q:"James White died on August 6, 1881. How many years was he married to Ellen?",o:["29","33","35","38"],a:2},
+  // EGW Books
+  {cat:"Ellen G. White – Books & Writings",q:"In what year was 'Steps to Christ' first published?",o:["1888","1890","1892","1896"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"In what year was 'The Desire of Ages' published?",o:["1895","1896","1898","1900"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"In what year was 'The Great Controversy' first published in its current form?",o:["1884","1888","1890","1892"],a:1},
+  {cat:"Ellen G. White – Books & Writings",q:"Which Ellen White book deals with the life of the apostles after Christ's ascension?",o:["Patriarchs and Prophets","The Acts of the Apostles","Christ's Object Lessons","Sketches from the Life of Paul"],a:1},
+  {cat:"Ellen G. White – Books & Writings",q:"'Patriarchs and Prophets' covering Old Testament history was published in which year?",o:["1880","1883","1890","1895"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"Which Ellen White book covers the period from Solomon to the coming of Christ?",o:["Patriarchs and Prophets","The Acts of the Apostles","Prophets and Kings","The Great Controversy"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"'Christ's Object Lessons' based on Christ's parables was published in which year?",o:["1896","1898","1900","1903"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"Which Ellen White book is the most widely distributed, translated into over 150 languages?",o:["The Desire of Ages","The Great Controversy","Steps to Christ","Patriarchs and Prophets"],a:2},
+  {cat:"Ellen G. White – Books & Writings",q:"'Testimonies for the Church' was published in how many volumes?",o:["Five","Seven","Nine","Twelve"],a:2},
+  // James White
+  {cat:"Church Pioneers – James White",q:"James White was born on August 4, 1821, in which US state?",o:["Maine","New York","Vermont","Massachusetts"],a:0},
+  {cat:"Church Pioneers – James White",q:"What was one of James White's most significant contributions to the early SDA Church?",o:["He built the first SDA church building","He founded the Advent Review and established the SDA publishing work","He organized the first camp meeting","He founded Battle Creek College"],a:1},
+  {cat:"Church Pioneers – James White",q:"James White started the Youth's Instructor in which year?",o:["1848","1850","1852","1855"],a:2},
+  {cat:"Church Pioneers – James White",q:"What paper did James White begin publishing in 1849?",o:["The Advent Review","The Present Truth","Signs of the Times","The Youth's Instructor"],a:1},
+  {cat:"Church Pioneers – James White",q:"James White died in Battle Creek, Michigan, on August 6 of which year?",o:["1878","1879","1880","1881"],a:3},
+  // Joseph Bates
+  {cat:"Church Pioneers – Joseph Bates",q:"Joseph Bates was born on July 8, 1792, in which US state?",o:["Maine","Massachusetts","Connecticut","New Hampshire"],a:1},
+  {cat:"Church Pioneers – Joseph Bates",q:"Before becoming an Adventist pioneer, Joseph Bates had a distinguished career as what?",o:["A doctor","A lawyer","A sea captain","A politician"],a:2},
+  {cat:"Church Pioneers – Joseph Bates",q:"Joseph Bates published a pamphlet in 1846 introducing the Sabbath truth. What was it called?",o:["The Seventh-day Sabbath, a Perpetual Sign","The Sabbath Truth Revealed","A New View of the Sabbath","The Forgotten Sabbath"],a:0},
+  {cat:"Church Pioneers – Joseph Bates",q:"Joseph Bates died on March 19 of which year?",o:["1870","1872","1873","1875"],a:1},
+  // J. N. Andrews
+  {cat:"Church Pioneers – J. N. Andrews",q:"John Nevins Andrews was born on July 22, 1829, in which US state?",o:["Vermont","Maine","New Hampshire","Connecticut"],a:0},
+  {cat:"Church Pioneers – J. N. Andrews",q:"What scholarly work did J. N. Andrews produce in 1861 defending the Sabbath?",o:["The History of the Sabbath","The Sabbath Manual","A Defense of the Sabbath","The Perpetual Sabbath"],a:0},
+  {cat:"Church Pioneers – J. N. Andrews",q:"J. N. Andrews died in Switzerland on October 21 of which year?",o:["1880","1883","1885","1888"],a:1},
+  {cat:"Church Pioneers – J. N. Andrews",q:"J. N. Andrews was known for mastery of how many languages?",o:["Seven","Ten","Fourteen","Seventeen"],a:2},
+  // Uriah Smith
+  {cat:"Church Pioneers – Uriah Smith",q:"Uriah Smith is best known as a long-serving editor of which SDA publication?",o:["Signs of the Times","The Youth's Instructor","The Review and Herald","The Present Truth"],a:2},
+  {cat:"Church Pioneers – Uriah Smith",q:"Uriah Smith wrote which widely-read SDA prophetic commentary?",o:["Daniel and the Revelation","Thoughts on Daniel","The Sanctuary and Its Services","From Here to Forever"],a:0},
+  // Overseas Missionaries
+  {cat:"Overseas Missionaries",q:"Michael Belina Czechowski first worked in which European country in 1864?",o:["Switzerland","France","Italy","Poland"],a:2},
+  {cat:"Overseas Missionaries",q:"D. T. Bourdeau went to which country in 1876 to open official SDA work?",o:["France","Italy","Switzerland","Belgium"],a:1},
+  {cat:"Overseas Missionaries",q:"F. A. Stahl worked among the Aymara Indians of which South American lake region?",o:["Lake Titicaca","Lake Maracaibo","Lake Poopó","Lake Junín"],a:0},
+  {cat:"Overseas Missionaries",q:"Ellen White spent nine years in Australia and helped found which college?",o:["Sydney Adventist College","Melbourne Adventist School","Avondale College","Brisbane Academy"],a:2},
+  {cat:"Overseas Missionaries",q:"The SDA message reached Japan in which year?",o:["1888","1890","1896","1900"],a:2},
+  // The Remnant Church
+  {cat:"The Remnant Church",q:"According to Revelation 12:17, the remnant are identified by which two characteristics?",o:["They keep the Commandments of God and have the Testimony of Jesus","They observe Sunday and preach the gospel","They speak in tongues and perform miracles","They build hospitals and schools"],a:0},
+  {cat:"The Remnant Church",q:"The 'Testimony of Jesus' in Revelation 12:17 and 19:10 is identified as what?",o:["The New Testament writings","The spirit of prophecy","The testimony of the apostles","The voice of the church"],a:1},
+  {cat:"The Remnant Church",q:"Revelation 14:12 describes the patience of the saints. What two characteristics do they have?",o:["They keep the commandments of God and have the faith of Jesus","They preach the gospel and baptize nations","They are sealed and have the name of God","They follow the Lamb and sing a new song"],a:0},
+  {cat:"The Remnant Church",q:"What does the second angel's message of Revelation 14 announce?",o:["The hour of God's judgment","The fall of Babylon","The mark of the beast","The Second Coming of Christ"],a:1},
+  {cat:"The Remnant Church",q:"What does the third angel's message of Revelation 14 warn against?",o:["Worshipping on Sunday","Receiving the mark of the beast","Eating unclean foods","Following false prophets"],a:1},
+  {cat:"The Remnant Church",q:"Revelation 18:4 gives the call 'Come out of her, my people.' What does this refer to?",o:["Leaving the city of Rome","Coming out of Babylon — false religious systems","Abandoning Sunday worship","Withdrawing from government"],a:1},
+  {cat:"The Remnant Church",q:"Which characteristic of the remnant church is tied to Revelation 19:10?",o:["Keeping the seventh-day Sabbath","Having the spirit of prophecy","Preaching the three angels' messages","Observing health reform"],a:1},
+  // Advent Ambassadors – America
+  {cat:"Advent Ambassadors – America",q:"William Miller was born on February 15, 1782, in which US state?",o:["New Hampshire","Vermont","Massachusetts","Connecticut"],a:0},
+  {cat:"Advent Ambassadors – America",q:"William Miller died on December 20, 1849. What was his age at death?",o:["62","65","67","70"],a:2},
+  {cat:"Advent Ambassadors – America",q:"What was William Miller's occupation before becoming a preacher?",o:["Schoolteacher","Lawyer and farmer","Doctor","Politician"],a:1},
+  {cat:"Advent Ambassadors – America",q:"Joshua Himes is remembered for what key role in the Advent movement?",o:["He calculated the date of the Second Coming","He was the chief publicist and organizer of the Millerite movement","He founded the first Adventist church","He preached the Midnight Cry message"],a:1},
+  {cat:"Advent Ambassadors – America",q:"Josiah Litch made a fulfilled prediction in 1840 about the fall of the Ottoman Empire based on which prophecy?",o:["Daniel 8","Revelation 9","Daniel 11","Revelation 13"],a:1},
+  {cat:"Advent Ambassadors – America",q:"Charles Fitch, who created the 1842 prophetic chart, died in which year?",o:["1843","1844","1845","1846"],a:0},
+  // Advent Ambassadors – Other Countries
+  {cat:"Advent Ambassadors – Other Countries",q:"Edward Irving, the Advent ambassador in Great Britain, was born in 1792 in which country?",o:["England","Ireland","Scotland","Wales"],a:2},
+  {cat:"Advent Ambassadors – Other Countries",q:"Joseph Wolff, the 'missionary to the world,' was born in 1795 in which country?",o:["England","Germany","Poland","Austria"],a:1},
+  {cat:"Advent Ambassadors – Other Countries",q:"Joseph Wolff preached the Advent message in which unusual location in 1838?",o:["Jerusalem","Bokhara (Central Asia)","The Vatican","Constantinople"],a:1},
+  {cat:"Advent Ambassadors – Other Countries",q:"Johann Bengel predicted Christ's return around which year?",o:["1800","1809","1836","1844"],a:2},
+  {cat:"Advent Ambassadors – Other Countries",q:"Manuel de Lacunza wrote his prophetic work under which pen name?",o:["Juan Josafat Ben-Ezra","Padre Lacunza","Manuel el Profeta","Jesús de Santiago"],a:0},
+  {cat:"Advent Ambassadors – Other Countries",q:"Lacunza's 'The Coming of the Messiah' was originally written in which language?",o:["Portuguese","Latin","Spanish","Italian"],a:2},
+  // Departments
+  {cat:"Departments – Establishment Years",q:"The Medical Missionary work began with the Western Health Reform Institute in which year?",o:["1864","1866","1868","1872"],a:1},
+  {cat:"Departments – Establishment Years",q:"The Education Department was formally organized as a GC department in which year?",o:["1887","1897","1901","1909"],a:1},
+  {cat:"Departments – Establishment Years",q:"ADRA was officially established in which year?",o:["1956","1969","1973","1984"],a:1},
+  {cat:"Departments – Establishment Years",q:"The Religious Liberty Department was formally organized in which year?",o:["1893","1901","1909","1913"],a:0},
+  // Youth Ministry
+  {cat:"Youth Ministry Leadership",q:"M. E. Kern served as the first GC Youth Director from 1907 to which year?",o:["1920","1925","1930","1935"],a:2},
+  {cat:"Youth Ministry Leadership",q:"Who succeeded M. E. Kern as GC Youth Director in 1930?",o:["H. T. Elliott","A. W. Peterson","E. W. Dunbar","L. A. Skinner"],a:0},
+  {cat:"Youth Ministry Leadership",q:"The MV Department's primary aim was what?",o:["To train literature evangelists","To enlist every Adventist young person in active Christian service","To build Adventist schools","To raise funds for overseas missions"],a:1},
+  {cat:"Youth Ministry Leadership",q:"When was the MV motto 'The Advent Message to All the World in This Generation' adopted?",o:["1907","1913","1918","1922"],a:0},
+  {cat:"Youth Ministry Leadership",q:"The first Pathfinder club is credited to John McKim in Sacramento, California, in which year?",o:["1928","1930","1932","1934"],a:0},
+  // GC Divisions
+  {cat:"General Conference Divisions",q:"How many divisions does the General Conference of Seventh-day Adventists have?",o:["10","11","12","13"],a:3},
+  {cat:"General Conference Divisions",q:"Which division covers the territory of North America?",o:["North American Division","Northern American Division","North Atlantic Division","American Division"],a:0},
+  {cat:"General Conference Divisions",q:"Which SDA division covers Australia, New Zealand and Pacific Islands?",o:["South Pacific Division","Australasian Division","Pacific Union Division","Oceania Division"],a:0},
+  {cat:"General Conference Divisions",q:"The Southern Asia Division covers which major country as its primary territory?",o:["Pakistan","India","Bangladesh","Sri Lanka"],a:1},
+  {cat:"General Conference Divisions",q:"In what year were the first formal divisions of the General Conference created?",o:["1901","1905","1910","1913"],a:3},
+  // Adventism in Eastern Nigeria (LOCAL)
+  {cat:"Adventism in Eastern Nigeria",q:"When did Adventism come into Eastern Nigeria?",o:["1914","1923","1956","1960"],a:1},
+  {cat:"Adventism in Eastern Nigeria",q:"How many fields (Conferences/Missions) are in the Eastern Nigerian Union Conference?",o:["10","16","18","23"],a:2},
+  {cat:"Adventism in Eastern Nigeria",q:"Who is the current president of the Eastern Nigerian Union Conference?",o:["Bassey E. O. Udoh","Joseph M. Ukaegbu","Anyalebechi Nnunukwe","Onyebuchi T. Opara"],a:0},
+  {cat:"Adventism in Eastern Nigeria",q:"Who was elected AYM Director at the last Aba South Conference Constituency meeting?",o:["Samuel Onyedikachi","Promise Ohuoba","Jacob Morgan","Emmanuel Ogbonna"],a:1},
+];
+
+// ════════════════════════
+// STATE
+// ════════════════════════
+let candName = '', candDistrict = '';
+let selectedCount = 50;
+let activeQ = [];
+let userAns = [];
+let currentQ = 0;
+let timerInt = null;
+let secsLeft = 1800;
+let submitted = false;
+
+function setCount(n, btn) {
+  selectedCount = n;
+  document.querySelectorAll('.cnt-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ════════════════════════
+// START
+// ════════════════════════
+function startQuiz() {
+  candName = document.getElementById('cand-name').value.trim();
+  candDistrict = document.getElementById('cand-district').value;
+  let ok = true;
+  document.getElementById('err-name').textContent = '';
+  document.getElementById('err-district').textContent = '';
+  if (!candName) { document.getElementById('err-name').textContent = 'Please enter your full name.'; ok = false; }
+  if (!candDistrict) { document.getElementById('err-district').textContent = 'Please select your district.'; ok = false; }
+  if (!ok) return;
+
+  activeQ = shuffle(ALL_Q).slice(0, selectedCount);
+  userAns = new Array(activeQ.length).fill(null);
+  currentQ = 0;
+  submitted = false;
+  secsLeft = selectedCount <= 50 ? 1800 : selectedCount <= 100 ? 3600 : 5400;
+
+  document.getElementById('cover-page').style.display = 'none';
+  document.getElementById('quiz-page').style.display = 'block';
+  document.getElementById('nav-panel').style.display = 'block';
+  document.getElementById('header-sub').textContent = candName + ' · ' + candDistrict;
+
+  buildGrid();
+  renderQ();
+  startTimer();
+}
+
+// ════════════════════════
+// TIMER
+// ════════════════════════
+function startTimer() {
+  const el = document.getElementById('timer-val');
+  function fmt() {
+    const m = Math.floor(secsLeft / 60), s = secsLeft % 60;
+    el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+  fmt();
+  timerInt = setInterval(() => {
+    secsLeft--;
+    fmt();
+    if (secsLeft <= 300) el.classList.add('warn');
+    if (secsLeft <= 0) { clearInterval(timerInt); submitQuiz(); }
+  }, 1000);
+}
+
+// ════════════════════════
+// RENDER
+// ════════════════════════
+function renderQ() {
+  const q = activeQ[currentQ];
+  document.getElementById('q-badge').textContent = `Q ${currentQ + 1} / ${activeQ.length}`;
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('q-text').textContent = q.q;
+
+  const optsEl = document.getElementById('opts');
+  optsEl.innerHTML = '';
+  ['A','B','C','D'].forEach((lt, i) => {
+    const lbl = document.createElement('label');
+    lbl.className = 'opt' + (userAns[currentQ] === i ? ' sel' : '');
+    lbl.innerHTML = `<input type="radio" name="opt" value="${i}">
+      <span class="ok">${lt}</span>
+      <span class="ot">${q.o[i]}</span>`;
+    lbl.addEventListener('click', () => selectAns(i));
+    optsEl.appendChild(lbl);
+  });
+
+  updateGrid();
+  updateProg();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectAns(idx) {
+  userAns[currentQ] = idx;
+  document.querySelectorAll('.opt').forEach((l, i) => l.classList.toggle('sel', i === idx));
+  updateGrid();
+}
+
+// ════════════════════════
+// NAV
+// ════════════════════════
+function navigate(dir) {
+  const n = currentQ + dir;
+  if (n < 0 || n >= activeQ.length) return;
+  currentQ = n;
+  renderQ();
+}
+
+function skipQ() {
+  if (userAns[currentQ] === null) userAns[currentQ] = -1;
+  navigate(1);
+}
+
+function jumpTo(idx) { currentQ = idx; renderQ(); }
+
+function buildGrid() {
+  const g = document.getElementById('nav-grid');
+  g.innerHTML = '';
+  activeQ.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'nb';
+    b.textContent = i + 1;
+    b.id = `nb${i}`;
+    b.addEventListener('click', () => jumpTo(i));
+    g.appendChild(b);
+  });
+}
+
+function updateGrid() {
+  activeQ.forEach((_, i) => {
+    const b = document.getElementById(`nb${i}`);
+    if (!b) return;
+    b.className = 'nb';
+    if (userAns[i] === -1) b.classList.add('ski');
+    else if (userAns[i] !== null) b.classList.add('ans');
+    if (i === currentQ) b.classList.add('cur');
+  });
+}
+
+function updateProg() {
+  const done = userAns.filter(a => a !== null && a !== -1).length;
+  document.getElementById('prog-fill').style.width = (done / activeQ.length * 100) + '%';
+}
+
+// ════════════════════════
+// SUBMIT
+// ════════════════════════
+function confirmSubmit() {
+  const u = userAns.filter(a => a === null).length;
+  let msg = 'Submit your examination now?';
+  if (u > 0) msg += `\n\n⚠ ${u} question(s) unanswered.`;
+  if (confirm(msg)) submitQuiz();
+}
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+
+  let correct = 0, wrong = 0, skipped = 0;
+  activeQ.forEach((q, i) => {
+    if (userAns[i] === null || userAns[i] === -1) skipped++;
+    else if (userAns[i] === q.a) correct++;
+    else wrong++;
+  });
+
+  const pct = Math.round(correct / activeQ.length * 100);
+
+  document.getElementById('quiz-page').style.display = 'none';
+  document.getElementById('nav-panel').style.display = 'none';
+  document.getElementById('results-page').style.display = 'block';
+
+  document.getElementById('res-name').textContent = candName;
+  document.getElementById('res-dist').textContent = candDistrict;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('s-correct').textContent = correct;
+  document.getElementById('s-wrong').textContent = wrong;
+  document.getElementById('s-skipped').textContent = skipped;
+  document.getElementById('score-ring').style.background =
+    `conic-gradient(#f0c040 ${pct * 3.6}deg, rgba(240,192,64,0.15) ${pct * 3.6}deg)`;
+
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = '';
+  activeQ.forEach((q, i) => {
+    const ua = userAns[i];
+    let cls = 's', stxt = '↷ Skipped';
+    if (ua !== null && ua !== -1) {
+      cls = ua === q.a ? 'c' : 'w';
+      stxt = ua === q.a ? '✓ Correct' : '✗ Wrong';
+    }
+    let ah = '';
+    if (ua !== null && ua !== -1 && ua !== q.a) {
+      ah = `<div class="ra yw">Your answer: ${q.o[ua]}</div><div class="ra co">Correct answer: ${q.o[q.a]}</div>`;
+    } else if (ua === q.a) {
+      ah = `<div class="ra yc">✓ ${q.o[q.a]}</div>`;
+    } else {
+      ah = `<div class="ra co">Correct answer: ${q.o[q.a]}</div>`;
+    }
+    const div = document.createElement('div');
+    div.className = `rq ${cls}`;
+    div.innerHTML = `
+      <div class="rqt">
+        <span class="rqn">Q${i+1} · ${q.cat}</span>
+        <span class="rqs ${cls}">${stxt}</span>
+      </div>
+      <div class="rqq">${q.q}</div>
+      ${ah}
+      <div class="rref">📘 ${q.cat}</div>`;
+    rl.appendChild(div);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retake() {
+  submitted = false;
+  document.getElementById('results-page').style.display = 'none';
+  document.getElementById('cover-page').style.display = 'flex';
+  document.getElementById('timer-val').textContent = '30:00';
+  document.getElementById('timer-val').classList.remove('warn');
+}
+
+function toggleDark() {
+  document.body.classList.toggle('dark');
+}
+</script>
+</body>
+</html>

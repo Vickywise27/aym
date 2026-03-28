@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Area 2 AYM – Bible Truths Mock Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--em:#10b981;--em2:#34d399;--em3:#059669;--em-glow:rgba(16,185,129,0.35);--em-soft:rgba(16,185,129,0.12);--em-border:rgba(16,185,129,0.28);--blue:#3b82f6;--red:#ef4444;--orange:#f97316;--glass:rgba(255,255,255,0.07);--glass2:rgba(255,255,255,0.12);--glass3:rgba(255,255,255,0.04);--gbl:1px solid rgba(255,255,255,0.13);--bg1:#020c07;--text:#f0fdf4;--text2:rgba(240,253,244,0.65);--text3:rgba(240,253,244,0.38);--r:16px;--r2:12px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg1);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(16,185,129,0.18) 0%,transparent 60%),radial-gradient(ellipse 60% 70% at 80% 80%,rgba(5,150,105,0.14) 0%,transparent 55%);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(16,185,129,0.07) 1px,transparent 0);background-size:32px 32px;pointer-events:none;z-index:0;}
+#cover-page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1.2rem;}
+.c-badge{display:inline-flex;align-items:center;gap:.45rem;background:var(--em-soft);border:1px solid var(--em-border);border-radius:50px;padding:.32rem .9rem;font-size:.68rem;font-weight:600;color:var(--em2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.4rem;}
+.c-badge::before{content:'✦';opacity:.7;}
+.c-title{font-family:'Cormorant Garamond',serif;color:var(--text);font-size:clamp(2rem,6vw,3rem);text-align:center;line-height:1.15;margin-bottom:.3rem;font-weight:600;}
+.c-title span{color:var(--em2);}
+.c-sub{color:var(--text3);font-size:.77rem;text-align:center;margin-bottom:2.2rem;font-weight:300;letter-spacing:.03em;}
+.c-card{background:var(--glass);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border:var(--gbl);border-radius:20px;padding:1.8rem 1.6rem;width:100%;max-width:400px;display:flex;flex-direction:column;gap:1.1rem;box-shadow:0 8px 32px rgba(0,0,0,0.4),0 0 0 1px rgba(16,185,129,0.08),inset 0 1px 0 rgba(255,255,255,0.1);}
+.lbl{display:block;color:var(--text3);font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem;}
+.inp{width:100%;background:var(--glass3);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r2);padding:.72rem 1rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s;backdrop-filter:blur(8px);}
+.inp:focus{border-color:var(--em);box-shadow:0 0 0 3px var(--em-soft),0 0 20px var(--em-glow);}
+.inp::placeholder{color:var(--text3);}
+.inp option{background:#041a0e;color:var(--text);}
+.cnt-row{display:flex;gap:.45rem;}
+.cnt-btn{flex:1;padding:.6rem .3rem;background:var(--glass3);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r2);color:var(--text2);font-family:'Outfit',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;}
+.cnt-btn:hover{border-color:var(--em-border);color:var(--em2);}
+.cnt-btn.on{background:var(--em-soft);border-color:var(--em);color:var(--em2);box-shadow:0 0 12px var(--em-glow);}
+.err{color:#f87171;font-size:.72rem;margin-top:.3rem;}
+.btn-go{background:linear-gradient(135deg,var(--em3),var(--em));color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:var(--r2);padding:.85rem;cursor:pointer;width:100%;transition:all .2s;margin-top:.3rem;letter-spacing:.03em;box-shadow:0 4px 20px var(--em-glow);}
+.btn-go:hover{transform:translateY(-1px);box-shadow:0 6px 28px var(--em-glow);}
+#quiz-page{display:none;min-height:100vh;padding-bottom:100px;position:relative;z-index:1;}
+.qh{background:rgba(2,12,7,0.75);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-bottom:1px solid rgba(16,185,129,0.15);padding:.7rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;position:sticky;top:0;z-index:100;}
+.qhl{display:flex;align-items:center;gap:.8rem;}
+.hl{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--em-border);background:var(--em-soft);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--em2);}
+.ht{color:var(--text);font-size:.82rem;font-weight:600;}
+.hs{color:var(--text3);font-size:.65rem;margin-top:1px;}
+.tmr{display:flex;align-items:center;gap:.35rem;background:var(--glass);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.32rem .75rem;backdrop-filter:blur(10px);}
+.tv{color:var(--em2);font-size:.92rem;font-weight:700;font-variant-numeric:tabular-nums;}
+.tv.warn{color:#f87171;animation:pulse .7s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.dbtn{background:var(--glass);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.32rem .65rem;color:var(--text2);font-size:.7rem;cursor:pointer;transition:all .15s;}
+.dbtn:hover{background:var(--glass2);border-color:var(--em-border);}
+.pb{height:2px;background:rgba(255,255,255,0.06);}
+.pf{height:100%;background:linear-gradient(90deg,var(--em3),var(--em2));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--em-glow);}
+.qw{max-width:700px;margin:0 auto;padding:1.3rem 1rem;}
+.qcard{background:var(--glass);backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);border:var(--gbl);border-radius:20px;padding:1.6rem;box-shadow:0 8px 32px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.09);}
+.qmeta{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;}
+.qbadge{background:var(--em-soft);border:1px solid var(--em-border);color:var(--em2);font-size:.67rem;font-weight:700;padding:.24rem .7rem;border-radius:50px;letter-spacing:.06em;}
+.qcat{font-size:.63rem;color:var(--text3);max-width:55%;text-align:right;}
+.qtxt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.65;margin-bottom:1.3rem;color:var(--text);font-weight:600;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{display:flex;align-items:flex-start;gap:.8rem;padding:.75rem .95rem;border:1px solid rgba(255,255,255,0.09);border-radius:var(--r2);cursor:pointer;transition:all .18s;background:var(--glass3);}
+.opt:hover{border-color:var(--em-border);background:var(--em-soft);}
+.opt.sel{border-color:var(--em);background:rgba(16,185,129,0.1);box-shadow:0 0 0 1px var(--em),0 0 16px rgba(16,185,129,0.15);}
+.opt input{display:none;}
+.ok{width:24px;height:24px;min-width:24px;border-radius:50%;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--text3);transition:all .18s;flex-shrink:0;margin-top:1px;}
+.opt.sel .ok{background:var(--em);border-color:var(--em);color:#fff;box-shadow:0 0 10px var(--em-glow);}
+.ot{font-size:.86rem;line-height:1.5;color:var(--text2);}
+.opt.sel .ot{color:var(--text);}
+.qbtns{display:flex;gap:.55rem;margin-top:1.1rem;}
+.bn{flex:1;padding:.68rem;border-radius:var(--r2);border:1px solid rgba(255,255,255,0.1);background:var(--glass3);color:var(--text2);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .18s;}
+.bn:hover{border-color:rgba(255,255,255,0.2);background:var(--glass);color:var(--text);}
+.bskip{color:var(--orange);border-color:rgba(249,115,22,0.25);}
+.bskip:hover{background:rgba(249,115,22,0.1);border-color:var(--orange);color:var(--orange);}
+.bnext{background:linear-gradient(135deg,var(--em3),var(--em));color:#fff;border-color:transparent;box-shadow:0 2px 14px var(--em-glow);}
+.bnext:hover{transform:translateY(-1px);box-shadow:0 4px 20px var(--em-glow);color:#fff;}
+#nav-panel{display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:rgba(2,12,7,0.82);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);border-top:1px solid rgba(16,185,129,0.18);padding:.6rem 1rem .65rem;box-shadow:0 -4px 24px rgba(0,0,0,0.35);}
+.nt{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;gap:.5rem;}
+.nleg{display:flex;gap:.7rem;}
+.nli{display:flex;align-items:center;gap:.3rem;font-size:.63rem;color:var(--text3);}
+.nd{width:8px;height:8px;border-radius:2px;}
+.nd-a{background:var(--em);box-shadow:0 0 6px var(--em-glow);}
+.nd-s{background:var(--orange);}
+.nd-u{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);}
+.bsub{background:linear-gradient(135deg,var(--em3),var(--em));color:#fff;border:none;border-radius:8px;padding:.38rem .9rem;font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s;box-shadow:0 2px 12px var(--em-glow);}
+.bsub:hover{transform:translateY(-1px);box-shadow:0 4px 18px var(--em-glow);}
+.nscroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.nscroll::-webkit-scrollbar{display:none;}
+.ngrid{display:flex;gap:.28rem;padding-bottom:1px;}
+.nb{width:26px;height:26px;min-width:26px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--glass3);color:var(--text2);font-size:.62rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;}
+.nb:hover{border-color:var(--em-border);color:var(--em2);}
+.nb.ans{background:var(--em-soft);border-color:var(--em);color:var(--em2);}
+.nb.ski{background:rgba(249,115,22,0.15);border-color:var(--orange);color:var(--orange);}
+.nb.cur{outline:2px solid var(--em2);outline-offset:2px;box-shadow:0 0 10px var(--em-glow);}
+#results-page{display:none;min-height:100vh;padding:1.5rem 1rem 4rem;position:relative;z-index:1;}
+.rw{max-width:700px;margin:0 auto;}
+.rtb{display:flex;justify-content:flex-end;margin-bottom:.8rem;}
+.db2{background:var(--glass);border:var(--gbl);border-radius:8px;padding:.35rem .8rem;font-family:'Outfit',sans-serif;font-size:.72rem;color:var(--text2);cursor:pointer;backdrop-filter:blur(10px);transition:all .15s;}
+.db2:hover{border-color:var(--em-border);color:var(--em2);}
+.rh{background:var(--glass);backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);border:var(--gbl);border-radius:20px;padding:2rem 1.5rem;text-align:center;margin-bottom:1.4rem;box-shadow:0 8px 32px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.09);position:relative;overflow:hidden;}
+.rh::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,0.2),transparent 70%);pointer-events:none;}
+.rname{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:.25rem;color:var(--text);}
+.rdist{font-size:.73rem;color:var(--text3);margin-bottom:1.5rem;}
+.sring{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.3rem;}
+.si{width:82px;height:82px;border-radius:50%;background:var(--glass);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(16,185,129,0.2);}
+.sp{font-size:1.2rem;font-weight:700;color:var(--em2);}
+.sl{font-size:.48rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-top:1px;}
+.sts{display:flex;justify-content:center;gap:2.5rem;}
+.sn{font-size:1.4rem;font-weight:700;}
+.sk{font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+.rtitle{font-family:'Cormorant Garamond',serif;font-size:1.05rem;margin-bottom:1rem;color:var(--text2);}
+.rq{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:var(--gbl);border-left:3px solid transparent;border-radius:var(--r);padding:1.1rem 1.1rem 1.1rem 1.2rem;margin-bottom:.7rem;}
+.rq.c{border-left-color:var(--em);}
+.rq.w{border-left-color:var(--red);}
+.rq.s{border-left-color:var(--orange);}
+.rqt{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.rqn{font-size:.64rem;color:var(--text3);}
+.rqs{font-size:.64rem;font-weight:700;padding:.18rem .5rem;border-radius:50px;}
+.rqs.c{background:rgba(16,185,129,0.15);color:var(--em2);}
+.rqs.w{background:rgba(239,68,68,0.12);color:#f87171;}
+.rqs.s{background:rgba(249,115,22,0.12);color:var(--orange);}
+.rqq{font-size:.88rem;margin-bottom:.6rem;line-height:1.55;color:var(--text);}
+.ra{font-size:.79rem;padding:.32rem .65rem;border-radius:7px;margin-bottom:.28rem;}
+.yw{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+.yc{background:rgba(16,185,129,0.1);color:var(--em2);border:1px solid var(--em-border);}
+.co{background:rgba(59,130,246,0.1);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);}
+.rref{font-size:.61rem;color:var(--text3);margin-top:.5rem;}
+.btn-rt{display:block;width:100%;max-width:700px;margin:1.5rem auto 0;background:linear-gradient(135deg,var(--em3),var(--em));color:#fff;border:none;border-radius:var(--r);padding:.95rem;font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.03em;box-shadow:0 4px 20px var(--em-glow);}
+.btn-rt:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--em-glow);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+#cover-page>*{animation:fadeUp .5s ease both;}
+#cover-page>*:nth-child(1){animation-delay:.05s;}
+#cover-page>*:nth-child(2){animation-delay:.12s;}
+#cover-page>*:nth-child(3){animation-delay:.18s;}
+#cover-page>*:nth-child(4){animation-delay:.25s;}
+</style>
+</head>
+<body>
+<div id="cover-page">
+  <div class="c-badge">Area 2 AYM.</div>
+  <div class="c-title">Bible Truths<br><span>Mock Exam</span></div>
+  <div class="c-sub">A Course in Bible Doctrine.</div>
+  <div class="c-card">
+    <div>
+      <label class="lbl" for="cand-name">Full Name</label>
+      <input class="inp" id="cand-name" type="text" placeholder="Enter your full name">
+      <div class="err" id="err-name"></div>
+    </div>
+    <div>
+      <label class="lbl" for="cand-district">District</label>
+      <select class="inp" id="cand-district">
+        <option value="">— Select your district —</option>
+        <option>Iheorji-Umuogele</option>
+        <option>Eziukwu-Aba</option>
+        <option>Umuagbahi District</option>
+        <option>Umunisii Group</option>
+        <option>Port-harcourt Road Group</option>
+      </select>
+      <div class="err" id="err-district"></div>
+    </div>
+    <div>
+      <label class="lbl">Number of Questions</label>
+      <div class="cnt-row">
+        <button class="cnt-btn" onclick="setCount(25,this)">25</button>
+        <button class="cnt-btn on" onclick="setCount(50,this)">50</button>
+        <button class="cnt-btn" onclick="setCount(100,this)">100</button>
+        <button class="cnt-btn" onclick="setCount(200,this)">All</button>
+      </div>
+    </div>
+    <button class="btn-go" onclick="startQuiz()">Begin Examination ▶</button>
+  </div>
+</div>
+<div id="quiz-page">
+  <div class="qh">
+    <div class="qhl">
+      <div class="hl">✦</div>
+      <div><div class="ht">Bible Truths Mock Exam</div><div class="hs" id="header-sub"></div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;">
+      <div class="tmr">⏱ <span class="tv" id="timer-val">30:00</span></div>
+      <button class="dbtn" onclick="toggleDark()">🌙</button>
+    </div>
+  </div>
+  <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
+  <div class="qw">
+    <div class="qcard">
+      <div class="qmeta">
+        <span class="qbadge" id="q-badge">Q 1 / 50</span>
+        <span class="qcat" id="q-cat"></span>
+      </div>
+      <div class="qtxt" id="q-text"></div>
+      <div class="opts" id="opts"></div>
+      <div class="qbtns">
+        <button class="bn" onclick="navigate(-1)">◀ Prev</button>
+        <button class="bn bskip" onclick="skipQ()">↷ Skip</button>
+        <button class="bn bnext" onclick="navigate(1)">Next ▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="nav-panel">
+  <div class="nt">
+    <div class="nleg">
+      <div class="nli"><div class="nd nd-a"></div>Answered</div>
+      <div class="nli"><div class="nd nd-s"></div>Skipped</div>
+      <div class="nli"><div class="nd nd-u"></div>Unanswered</div>
+    </div>
+    <button class="bsub" onclick="confirmSubmit()">✔ Submit</button>
+  </div>
+  <div class="nscroll"><div class="ngrid" id="nav-grid"></div></div>
+</div>
+<div id="results-page">
+  <div class="rw">
+    <div class="rtb"><button class="db2" onclick="toggleDark()">🌙 Dark Mode</button></div>
+    <div class="rh">
+      <div class="rname" id="res-name"></div>
+      <div class="rdist" id="res-dist"></div>
+      <div class="sring" id="score-ring">
+        <div class="si"><div class="sp" id="score-pct">0%</div><div class="sl">SCORE</div></div>
+      </div>
+      <div class="sts">
+        <div><div class="sn" id="s-correct" style="color:#34d399"></div><div class="sk">Correct</div></div>
+        <div><div class="sn" id="s-wrong" style="color:#f87171"></div><div class="sk">Wrong</div></div>
+        <div><div class="sn" id="s-skipped" style="color:#fb923c"></div><div class="sk">Skipped</div></div>
+      </div>
+    </div>
+    <div class="rtitle">📖 Review &amp; Corrections</div>
+    <div id="review-list"></div>
+    <button class="btn-rt" onclick="retake()">↺ Retake Examination</button>
+  </div>
+</div>
+<script>
+const ALL_Q = [
+
+  // ── Section 1: The Scriptures ──
+  {cat:"Section 1 – The Scriptures",q:"According to Hebrews 11:6, what two things must a person who draws near to God believe?",o:["That God exists and that He is loving","That God exists and that He rewards those who seek Him","That Jesus is Lord and that He will return","That the Bible is true and that prayer works"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"The Bible writers make no attempt to prove that God exists. How is the existence of God described in the Bible?",o:["A philosophical argument","A scientific theory","A revealed truth","A human tradition"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"Which of the following is NOT listed as a consideration contributing toward belief in the existence of God?",o:["The universal desire to worship","The existence of the material universe","The prophecies of the Scriptures","The opinions of modern philosophers"],a:3},
+  {cat:"Section 1 – The Scriptures",q:"According to Proverbs 1:7, what is described as the basis of wisdom?",o:["Knowledge of science","Fear of the Lord","Study of Scripture","Love of neighbour"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"How has God revealed Himself according to Psalm 19:1–4?",o:["Through angels speaking to men","Through the material universe and nature","Through the writings of philosophers","Through dreams and visions only"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"According to Amos 3:7, what does the Lord never do without telling His servants the prophets?",o:["Send rain on the earth","Reveal the names of the wicked","Do anything","Open the gates of heaven"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"What is described as the best and fullest revelation of God?",o:["The Ten Commandments","The writings of the prophets","The person of Jesus Christ","The book of Psalms"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"The word 'Bible' comes from the Greek word 'biblos', which means what?",o:["Truth","Book","Light","Word"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"How many books are contained in the Bible?",o:["39","66","27","73"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"Who was the earliest writer of Scripture, writing approximately 1,500 years before Christ?",o:["David","Isaiah","Moses","Job"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"How many books are in the Old Testament?",o:["27","39","45","66"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"How many books are in the New Testament?",o:["22","25","27","30"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"The last book of the Bible, Revelation, was written by which apostle and approximately when?",o:["Paul, around A.D. 60","Peter, around A.D. 70","John, around A.D. 95","James, around A.D. 50"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"The writing of all the books of the Bible covered a period of approximately how many years?",o:["500 years","1,000 years","1,600 years","2,000 years"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"The Old Testament was written primarily in which language?",o:["Greek","Latin","Aramaic","Hebrew"],a:3},
+  {cat:"Section 1 – The Scriptures",q:"The New Testament was written in which language?",o:["Latin","Greek","Hebrew","Aramaic"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"Who made the first English translation of the Bible, completed in 1382–1388?",o:["William Tyndale","Martin Luther","John Wycliffe","John Calvin"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"The King James (Authorized) Version of the Bible was produced in which year?",o:["1382","1525","1611","1769"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"According to 2 Timothy 3:16–17, what does Scripture equip the man of God for?",o:["Church leadership only","Every good work","Preaching only","Political governance"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"According to 2 Peter 1:21, how did the prophecies of the Bible originate?",o:["From the wisdom of great thinkers","From Jewish tradition","Men were moved by the Holy Spirit","From angelic dictation"],a:2},
+  {cat:"Section 1 – The Scriptures",q:"What is described as the primary requisite for true understanding of the Bible?",o:["Advanced education","Spiritual preparation","Memorisation of texts","Church attendance"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"According to Hebrews 5:13–14, what does Bible study help a person discern?",o:["Political truth from error","Good from evil","History from myth","Science from religion"],a:1},
+  {cat:"Section 1 – The Scriptures",q:"According to John 17:17, what does the Word of God do to the life of a believer?",o:["Gives wealth","Sanctifies the life","Grants healing","Provides comfort only"],a:2},
+
+  // ── Section 2: Creation and the Godhead ──
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Genesis 1:1, who created the heavens and the earth?",o:["The angels","God","Jesus alone","The Holy Spirit alone"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to John 1:1–3, all things were made by whom?",o:["God the Father alone","The Holy Spirit","The Word (Jesus)","The angels"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to 2 Corinthians 5:17, the work of redemption is described as what kind of work?",o:["A judicial work","A work of re-creation","A work of reform","A work of restoration"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"How long did it take God to create the earth and all that is in it, according to Exodus 20:11?",o:["One day","Three days","Six days","Seven days"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"The Hebrew word 'bara', used for God's act of creation in Genesis 1:1, means what?",o:["To form from existing matter","To organise chaos","To create something out of nothing","To divide and separate"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Hebrews 11:3, creation is a fact to be accepted by what?",o:["Scientific evidence","Philosophical reasoning","Faith","Tradition"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"God made man in His image according to Genesis 1:26. What was NOT provided for man's welfare at creation?",o:["Food (Genesis 1:29)","Employment (Genesis 2:15)","A written Bible","Companionship (Genesis 2:22)"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Psalm 147:4–5, what does God do with all the stars?",o:["Uses them for signs only","Numbers and names them all","Moves them according to time","Creates new ones each night"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"The Sabbath was instituted at the close of which event?",o:["The Exodus from Egypt","Creation week","The flood","The giving of the law at Sinai"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"What THREE acts did God perform to establish the Sabbath in Genesis 2:1–3?",o:["He created, blessed, and sanctified the seventh day","He rested, blessed, and sanctified the seventh day","He rested, named, and consecrated the seventh day","He spoke, blessed, and hallowed the seventh day"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Mark 2:27, for whom was the Sabbath made?",o:["For the Jewish nation only","For the priests","For all mankind","For Adam and Eve only"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Exodus 31:13, what did the Sabbath serve as between God and His people?",o:["A sign of their covenant relationship and sanctification","A day of sacrifice","A memorial of the Exodus","A preparation for Sunday worship"],a:0},
+  {cat:"Section 2 – Creation & the Godhead",q:"Revelation 14:6–7 connects the last-day message with calling attention to God as what?",o:["Saviour","Judge","Creator","King"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"Isaiah 66:22–23 indicates the Sabbath will be observed in what place?",o:["The earthly Jerusalem","The present church only","The new earth","The heavenly sanctuary only"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"How many persons are in the Trinity, according to Matthew 28:19?",o:["One","Two","Three","Four"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to 1 John 4:8, which attribute of God is declared in that verse?",o:["God is truth","God is light","God is love","God is power"],a:2},
+  {cat:"Section 2 – Creation & the Godhead",q:"The Holy Spirit is described as the 'Comforter' in which Gospel?",o:["Matthew","Mark","Luke","John"],a:3},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to Romans 8:26, what does the Holy Spirit do for believers?",o:["Teaches them prophecy","Intercedes for them","Gives them wealth","Heals all sickness"],a:1},
+  {cat:"Section 2 – Creation & the Godhead",q:"According to John 14:9, what did Jesus say to Philip about seeing the Father?",o:["'The Father is greater than I'","'He who has seen Me has seen the Father'","'No one can see the Father and live'","'The Father will come to you directly'"],a:1},
+
+  // ── Section 3: Sin ──
+  {cat:"Section 3 – Sin",q:"According to 1 John 3:4, what is the Bible's definition of sin?",o:["Failure to love God","Lawlessness / transgression of the law","Disbelief in Jesus","Neglect of prayer"],a:1},
+  {cat:"Section 3 – Sin",q:"According to Romans 6:23, what is the wage or consequence of sin?",o:["Suffering","Poverty","Death","Separation from family"],a:2},
+  {cat:"Section 3 – Sin",q:"According to Isaiah 59:2, what does sin do between God and man?",o:["Causes natural disasters","Separates man from God","Removes the gift of prayer","Destroys the church"],a:1},
+  {cat:"Section 3 – Sin",q:"In Ezekiel 28:17, what was described as the beginning of Lucifer's sin?",o:["Jealousy of Christ","Pride","Anger at God","Desire for worship"],a:1},
+  {cat:"Section 3 – Sin",q:"According to the lesson on the origin of sin, where did sin originate?",o:["On the earth with Adam","In the mind of God's enemies on earth","In heaven with Lucifer (Satan)","In the Garden of Eden with Eve"],a:2},
+  {cat:"Section 3 – Sin",q:"According to Revelation 12:7–9, where was Satan defeated before he continued his warfare on earth?",o:["In the Garden of Eden","In the wilderness of temptation","In heaven","In Babylon"],a:2},
+  {cat:"Section 3 – Sin",q:"According to Matthew 5:27–28, sin has to do with which aspect of the human person?",o:["Outward actions only","Words spoken","Inward desires and motives","Religious practices"],a:2},
+  {cat:"Section 3 – Sin",q:"Eze. 28:15 states that Lucifer 'originally lived' in what condition before his fall?",o:["In ignorance of God's law","A perfect life","As a lower angel","In a state of limited power"],a:1},
+
+  // ── Section 4: Redemption ──
+  {cat:"Section 4 – Redemption",q:"According to Romans 3:23, who has sinned?",o:["Only those who reject Christ","Only the unbelievers","All have sinned","Only those without the Holy Spirit"],a:2},
+  {cat:"Section 4 – Redemption",q:"The three specific stages of the plan of redemption are justification, sanctification, and what?",o:["Consecration","Glorification","Sanctification","Resurrection"],a:1},
+  {cat:"Section 4 – Redemption",q:"What is justification, as described in Romans 3:23–24?",o:["A process of becoming holy over time","A divine act declaring a repentant sinner righteous","The giving of eternal life at the resurrection","The removal of all sinful tendencies"],a:1},
+  {cat:"Section 4 – Redemption",q:"The basis of justification is not our obedience but whose obedience, according to Romans 5:18?",o:["The apostles' obedience","The church's obedience","Christ's obedience","The prophets' obedience"],a:2},
+  {cat:"Section 4 – Redemption",q:"According to Galatians 2:16, how is salvation received?",o:["By keeping the law","By works of charity","Not by works of law but through faith in Christ","By baptism alone"],a:2},
+  {cat:"Section 4 – Redemption",q:"According to 1 Thessalonians 5:23, sanctification means what?",o:["Forgiveness of sins","Holiness","Justification","Water baptism"],a:1},
+  {cat:"Section 4 – Redemption",q:"Justification is described as 'imputed' righteousness. What word describes sanctification?",o:["Imputed","Declared","Imparted","Reckoned"],a:2},
+  {cat:"Section 4 – Redemption",q:"At the Second Advent, what will happen to the bodies of God's people, according to 1 Corinthians 15:51–54?",o:["They will be spiritually renewed only","The corruptible will put on incorruption — glorification","They will be judged and some destroyed","They will remain the same"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to Acts 4:12, where alone is salvation found?",o:["In the church","In Christ","In the Bible","In baptism"],a:1},
+  {cat:"Section 4 – Redemption",q:"The Great Controversy began where, according to Revelation 12:7–9?",o:["In the Garden of Eden","In ancient Babylon","In heaven","In the wilderness of Judea"],a:2},
+  {cat:"Section 4 – Redemption",q:"What was the central issue in the Great Controversy, according to Psalm 19:7?",o:["The nature of God","The law of God","The Sabbath day","The plan of salvation"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to Luke 1:26–35, how was Jesus conceived?",o:["By natural means","Through the Holy Spirit","By divine decree alone","Through the faith of Mary"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to John 1:14, what is the term for God becoming man in the person of Jesus?",o:["The Resurrection","The Ascension","The Incarnation","The Transfiguration"],a:2},
+  {cat:"Section 4 – Redemption",q:"According to 1 Peter 2:22, what was true of Jesus's life?",o:["He occasionally made mistakes","He never sinned","He was fully human and never divine","He avoided all contact with sinners"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to Hebrews 4:15, how was Jesus tempted?",o:["Only in ways specific to God","In all points as we are, yet without sin","Only in minor ways","Not at all — His divinity protected Him"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to Romans 10:9, what is described as essential to salvation?",o:["Church membership","Belief in Christ's resurrection and confession of His lordship","Water baptism alone","Keeping all Ten Commandments"],a:1},
+  {cat:"Section 4 – Redemption",q:"The resurrection of Christ took place on which day of the week, according to Matthew 28:1–6?",o:["The Sabbath (seventh day)","The first day of the week (Sunday)","The second day of the week","The day of Pentecost"],a:1},
+  {cat:"Section 4 – Redemption",q:"Micah 5:2 prophesied that Jesus would be born in which town?",o:["Nazareth","Jerusalem","Bethlehem","Hebron"],a:2},
+  {cat:"Section 4 – Redemption",q:"Psalm 16:10 is a prophecy about what event in Christ's life?",o:["His baptism","His transfiguration","His crucifixion","His resurrection"],a:3},
+  {cat:"Section 4 – Redemption",q:"According to the lesson on salvation, what are the steps in experiencing salvation?",o:["Baptism, tithing, church membership","Repentance, confession, acceptance of Christ, consecration","Prayer, fasting, good works","Study, knowledge, obedience"],a:1},
+  {cat:"Section 4 – Redemption",q:"The Greek word 'metanoia' (repentance) means what?",o:["A sacrifice for sin","A change of mind or attitude","Weeping over sin","A public confession"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to John 14:15, what does love for Christ lead to?",o:["Greater miracles","Obedience to His commandments","Freedom from suffering","More blessings"],a:1},
+  {cat:"Section 4 – Redemption",q:"According to Daniel 2:44, what will God's kingdom do to all earthly kingdoms?",o:["Reform them","Unite them","Destroy them all and stand forever","Outlast them gradually"],a:2},
+
+  // ── Section 5: Intercession ──
+  {cat:"Section 5 – Intercession",q:"According to 1 Timothy 2:5, how many mediators are there between God and man?",o:["Many — the saints and angels","Only the prophets","One — Christ Jesus","Three — the Trinity"],a:2},
+  {cat:"Section 5 – Intercession",q:"According to Hebrews 7:25, what is Christ able to do for those who come to God through Him?",o:["Give them earthly blessings","Intercede for them in a limited way","Save them completely / to the uttermost","Forgive only minor sins"],a:2},
+  {cat:"Section 5 – Intercession",q:"The ministry of the earthly priests in the sanctuary was described in Hebrews 8:5 as what?",o:["The final and complete solution","Typical / a shadow of Christ's heavenly ministry","Superior to Christ's ministry","Unnecessary after Moses"],a:1},
+  {cat:"Section 5 – Intercession",q:"According to Daniel 8:14, how many days were to pass before the sanctuary would be cleansed?",o:["1,260 days","1,844 days","2,300 days","490 days"],a:2},
+  {cat:"Section 5 – Intercession",q:"Using the day-year principle (Ezekiel 4:6; Numbers 14:34), 2,300 prophetic days equal how many literal years?",o:["2,300 months","2,300 years","460 years","1,150 years"],a:1},
+  {cat:"Section 5 – Intercession",q:"The 2,300-day/year prophecy is calculated from which decree?",o:["The decree of Cyrus in 537 B.C.","The decree of Darius in 519 B.C.","The decree of Artaxerxes in 457 B.C.","The decree of Nebuchadnezzar in 605 B.C."],a:2},
+  {cat:"Section 5 – Intercession",q:"Based on the 2,300-year prophecy starting in 457 B.C., what year did the cleansing of the heavenly sanctuary begin?",o:["1798","1833","1844","1863"],a:2},
+  {cat:"Section 5 – Intercession",q:"The Jewish Day of Atonement was held on which day of the seventh month each year?",o:["The first day","The seventh day","The tenth day","The fifteenth day"],a:2},
+  {cat:"Section 5 – Intercession",q:"The three phases of divine judgment described in the lesson are investigative, review, and what?",o:["Punitive","Executive","Legislative","Final"],a:1},
+  {cat:"Section 5 – Intercession",q:"According to Daniel 7:9–10, Daniel saw a heavenly court session. What was being carried out?",o:["The anointing of Jesus","An investigative judgment","The creation of angels","The sealing of the 144,000"],a:1},
+  {cat:"Section 5 – Intercession",q:"According to Revelation 14:6–7, the last-day message announces that the hour of what has come?",o:["God's mercy","God's judgment","Christ's return","The great tribulation"],a:1},
+  {cat:"Section 5 – Intercession",q:"According to Revelation 20:4 and 1 Corinthians 6:2–3, the redeemed will participate in which phase of judgment during the millennium?",o:["Executive phase","Investigative phase","Review phase","Legislative phase"],a:2},
+  {cat:"Section 5 – Intercession",q:"According to Malachi 3:16, what book records the deeds and purposes of God's followers?",o:["The Book of Life","The Book of Remembrance","The Book of Prophecy","The Book of the Covenant"],a:1},
+
+  // ── Section 6: Advent ──
+  {cat:"Section 6 – Advent",q:"According to John 14:1–3, what did Christ promise before leaving the world?",o:["To send the Holy Spirit permanently","To return and take His people to be with Him","To establish His kingdom on earth at that time","To give His disciples the keys of heaven"],a:1},
+  {cat:"Section 6 – Advent",q:"According to Revelation 1:7, who will see Christ when He returns?",o:["Only the righteous","Only those in the church","Every eye — all who are living on earth","Only those who crucified Him"],a:2},
+  {cat:"Section 6 – Advent",q:"At the Second Advent, what happens to the righteous dead, according to 1 Thessalonians 4:16?",o:["They enter heaven immediately","They are resurrected","They remain asleep until later","They are judged first"],a:1},
+  {cat:"Section 6 – Advent",q:"At the Second Advent, what happens to those who reject Christ, according to 2 Thessalonians 1:7–10?",o:["They are given another chance","They are imprisoned","They are destroyed by the brightness of His coming","They are cast immediately into the lake of fire"],a:2},
+  {cat:"Section 6 – Advent",q:"In the New Testament, approximately how many references to the Second Advent are found in the 260 chapters?",o:["100","200","318","500"],a:2},
+  {cat:"Section 6 – Advent",q:"According to Matthew 24:36, what has NOT been revealed about Christ's return?",o:["The signs preceding it","The manner of His coming","The exact day and hour","That every eye will see Him"],a:2},
+  {cat:"Section 6 – Advent",q:"According to the Bible Truths manual, what were the three spectacular physical signs pointing to the nearness of Christ's return?",o:["Wars, famines, and earthquakes","The Dark Day, the Lisbon earthquake, and the meteor shower","The fall of Jerusalem, the Reformation, and the Advent movement","The French Revolution, the rise of the papacy, and the meteor shower"],a:1},
+  {cat:"Section 6 – Advent",q:"On what date did the great Lisbon earthquake occur?",o:["May 19, 1780","November 13, 1833","November 1, 1755","October 22, 1844"],a:2},
+  {cat:"Section 6 – Advent",q:"What was the date of the famous Dark Day?",o:["November 1, 1755","May 19, 1780","November 13, 1833","October 22, 1844"],a:1},
+  {cat:"Section 6 – Advent",q:"The great meteor shower described as a sign of Christ's return occurred on what date?",o:["November 1, 1755","May 19, 1780","November 13, 1833","October 22, 1844"],a:2},
+  {cat:"Section 6 – Advent",q:"The word 'millennium' means what?",o:["A thousand days","A thousand weeks","A thousand years","An indefinite period"],a:2},
+  {cat:"Section 6 – Advent",q:"According to Revelation 20:4–6, where will the righteous reign with Christ during the millennium?",o:["On the earth","In the heavenly Jerusalem","In the new earth","In a restored earthly paradise"],a:1},
+  {cat:"Section 6 – Advent",q:"What happens to Satan during the millennium, according to Revelation 20:1–3?",o:["He is destroyed","He is bound in the bottomless pit","He is imprisoned on earth with the wicked dead","He is cast into the lake of fire immediately"],a:1},
+  {cat:"Section 6 – Advent",q:"According to Revelation 20:5, when are the wicked (unbelieving) dead raised?",o:["At the Second Advent","At the beginning of the millennium","At the close of the millennium","At the executive judgment"],a:2},
+  {cat:"Section 6 – Advent",q:"According to 2 Peter 3:13, what will the saved inherit after the millennium?",o:["An eternal spiritual realm","A new earth inhabited by righteousness","The restored Garden of Eden","A heavenly city with no earth"],a:1},
+  {cat:"Section 6 – Advent",q:"According to Revelation 22:4, what privilege will the redeemed have in the new earth?",o:["Eternal sleep and rest","They will rule over nations","They will see the face of Christ","They will create new worlds"],a:2},
+
+  // ── Section 7: Prophecy ──
+  {cat:"Section 7 – Prophecy",q:"In Nebuchadnezzar's dream of the great image in Daniel 2, what did the head of gold represent?",o:["Medo-Persia","Rome","Babylon","Grecia"],a:2},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 2, what did the breast and arms of silver represent?",o:["Babylon","Grecia","Rome","Medo-Persia"],a:3},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 2, the belly and thighs of brass represented which empire?",o:["Rome","Medo-Persia","Grecia","Babylon"],a:2},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 2, the legs of iron represented which empire?",o:["Grecia","Rome","Babylon","Medo-Persia"],a:1},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 2, the feet of iron and clay represent what?",o:["The Roman Catholic Church","The ten kingdoms of Europe","The nations of Asia","The final world government"],a:1},
+  {cat:"Section 7 – Prophecy",q:"The great stone in Daniel 2 that smote the image represents what?",o:["The Second Coming of Christ","The Reformation","The Adventist movement","The fall of Rome"],a:0},
+  {cat:"Section 7 – Prophecy",q:"According to Daniel 7, what animal represented the kingdom of Babylon?",o:["A bear","A leopard","A lion with eagle's wings","A dreadful beast"],a:2},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 7, what animal represented Medo-Persia?",o:["A lion","A bear","A leopard","A goat"],a:1},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 7, the leopard with four heads and four wings represented which empire?",o:["Rome","Babylon","Medo-Persia","Grecia"],a:3},
+  {cat:"Section 7 – Prophecy",q:"In Daniel 7, the fourth dreadful beast with iron teeth represented which empire?",o:["Grecia","Babylon","Rome","Medo-Persia"],a:2},
+  {cat:"Section 7 – Prophecy",q:"The little horn of Daniel 7 is identified in the lesson as which power?",o:["The Greek Empire","Pagan Rome","The Papacy / Papal Rome","The Ottoman Empire"],a:2},
+  {cat:"Section 7 – Prophecy",q:"According to Daniel 7:25, how long was the little horn power to exercise authority against the saints?",o:["42 months / 1260 days (years)","2,300 years","70 weeks","1,000 years"],a:0},
+
+  // ── Section 8: Obedience ──
+  {cat:"Section 8 – Obedience",q:"According to Ecclesiastes 12:13, what do the Ten Commandments express?",o:["The wisdom of Solomon","The religious history of Israel","The whole duty of man","The covenant of Moses"],a:2},
+  {cat:"Section 8 – Obedience",q:"The first four commandments define man's duty to whom?",o:["His family","His nation","His fellow beings","God"],a:3},
+  {cat:"Section 8 – Obedience",q:"The last six commandments define man's duty to whom?",o:["God","His fellow beings","The church","The state"],a:1},
+  {cat:"Section 8 – Obedience",q:"According to Romans 7:7, what function does the law perform for the believer?",o:["It saves us from sin","It convicts us of sin and shows us our need for Christ","It replaces grace","It grants forgiveness"],a:1},
+  {cat:"Section 8 – Obedience",q:"According to Hebrews 8:8–10, where does God desire to write His law in the new covenant?",o:["On tablets of stone","In books of the church","In our hearts","On the walls of the sanctuary"],a:2},
+  {cat:"Section 8 – Obedience",q:"According to the lesson on the Sabbath, what does Exodus 16:22–26 demonstrate?",o:["The Sabbath was first given at Sinai","The Israelites observed the Sabbath before Sinai","Moses invented the Sabbath","The Sabbath replaced the weekly feast"],a:1},
+  {cat:"Section 8 – Obedience",q:"According to Luke 4:16, what was Christ's regular practice regarding the Sabbath?",o:["He observed Sunday instead","He taught that the Sabbath was abolished","It was His custom to observe the Sabbath","He observed the Sabbath only occasionally"],a:2},
+  {cat:"Section 8 – Obedience",q:"In Matthew 24:20, what did Christ teach regarding the Sabbath?",o:["That it would be abolished after His death","That His followers should keep the Sabbath in mind even after His death","That Sunday would replace the Sabbath","That the Sabbath was only for Israel"],a:1},
+  {cat:"Section 8 – Obedience",q:"According to the lesson, the word 'Sunday' is found in the Bible how many times?",o:["Once","Three times","Many times","It is not found in the Bible"],a:3},
+  {cat:"Section 8 – Obedience",q:"According to Daniel 7:25, the little-horn power would attempt to change what?",o:["The plan of salvation","The times and the law","The canon of Scripture","The sacraments of the church"],a:1},
+  {cat:"Section 8 – Obedience",q:"The Catholic Church claims to have transferred the Sabbath rest to Sunday in remembrance of what?",o:["The ascension of Christ","The day of Pentecost","The resurrection of Christ","The creation of the world"],a:2},
+  {cat:"Section 8 – Obedience",q:"According to Revelation 7:1–3, what will God's servants receive before the final judgments fall on the earth?",o:["The gift of tongues","The seal of the living God","The mark of protection","The crown of life"],a:1},
+  {cat:"Section 8 – Obedience",q:"The 144,000 sealed in Revelation 14:1 have what in their foreheads?",o:["The mark of the beast","The seal of the Holy Spirit","The name of God (seal of God)","The sign of the cross"],a:2},
+  {cat:"Section 8 – Obedience",q:"According to Revelation 16:1–2, what falls on those who receive the mark of the beast?",o:["Eternal torment only","The wrath of God / seven last plagues","Immediate death","The plagues of Egypt"],a:1},
+
+  // ── Section 9: Church ──
+  {cat:"Section 9 – The Church",q:"According to Matthew 16:18, upon what did Jesus say He would build His church?",o:["The city of Jerusalem","Peter's personal leadership","The great truth of Peter's confession about Christ","The Roman government"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Acts 2:47, who adds members to the church?",o:["The pastor","The elders","The Lord","The congregation by vote"],a:2},
+  {cat:"Section 9 – The Church",q:"What is the only method of baptism revealed in the Bible, according to the lesson?",o:["Sprinkling","Pouring","Immersion","Any method is acceptable"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Romans 6:3–4, baptism signifies what?",o:["Entry into a religious institution","Payment of church dues","Death and burial of the past sinful life and resurrection to new life","A pledge of church attendance"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Acts 2:38, what two requirements precede receiving the Holy Spirit in baptism?",o:["Faith and fasting","Repentance and baptism","Prayer and study","Church membership and tithe"],a:1},
+  {cat:"Section 9 – The Church",q:"The Greek word for baptism means what?",o:["To sprinkle","To pour","To wash","To plunge, dip, or immerse"],a:3},
+  {cat:"Section 9 – The Church",q:"According to John 13:12–17, the ordinance of humility was instituted to teach what virtue?",o:["Generosity","Sacrifice","Humility and service","Prayer"],a:2},
+  {cat:"Section 9 – The Church",q:"According to 1 Corinthians 11:26, the Lord's Supper commemorates what event?",o:["The birth of Christ","The resurrection of Christ","The death of Christ","The ascension of Christ"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Leviticus 27:30–33, all the tithe belongs to whom?",o:["The Levites","The church building fund","The Lord","The poor of the community"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Malachi 3:8–10, withholding tithes and offerings is described by God as what?",o:["Foolishness","Robbing God","Lack of faith","Breaking a church rule"],a:1},
+  {cat:"Section 9 – The Church",q:"The tithing principle existed before Israel, as shown by which patriarch paying tithes in Genesis 14?",o:["Jacob","Isaac","Abraham","Noah"],a:2},
+  {cat:"Section 9 – The Church",q:"According to 2 Peter 1:21, the gift of prophecy works by what means?",o:["Human wisdom","Church tradition","The Holy Spirit moving men","Direct dictation by angels"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Revelation 19:10, the 'testimony of Jesus' is declared to be what?",o:["The New Testament","The spirit of prophecy","The words of Paul","The four Gospels"],a:1},
+  {cat:"Section 9 – The Church",q:"According to Revelation 12:17, the remnant church is identified by which TWO characteristics?",o:["Sunday worship and evangelism","Keeping the commandments of God and having the testimony of Jesus","Faith and miracles","Tithing and baptism"],a:1},
+  {cat:"Section 9 – The Church",q:"What is the PRIMARY test of a true prophet according to Isaiah 8:19–20?",o:["Fulfilled predictions","Physical phenomena","Harmony with Scripture (revealed will of God)","Popularity and following"],a:2},
+  {cat:"Section 9 – The Church",q:"According to Matthew 7:15–20, what is another key test for a true prophet?",o:["Length of ministry","Number of visions","Fruits of personal life and teaching","Formal education"],a:2},
+
+  // ── Section 10: Health ──
+  {cat:"Section 10 – Health",q:"According to 1 Corinthians 6:19–20, the believer's body is described as what?",o:["A burden to be endured","A tool for work","A temple of the Holy Spirit","A temporary vessel"],a:2},
+  {cat:"Section 10 – Health",q:"According to Genesis 1:29, what was man's original diet at creation?",o:["Flesh and vegetables","Only water","Plant-based — fruits, grains, and vegetables","Fish and bread"],a:2},
+  {cat:"Section 10 – Health",q:"After the Flood, what addition was God's people permitted to make to their diet, according to Genesis 9:3?",o:["Dairy products","Grains and beans","Flesh foods","Fermented drinks"],a:2},
+  {cat:"Section 10 – Health",q:"Deuteronomy 14:8 specifically forbids consumption of which animal?",o:["Rabbit","Camel","Swine (pigs)","Shellfish"],a:2},
+  {cat:"Section 10 – Health",q:"According to Proverbs 20:1, wine and strong drink are described as what?",o:["Medicines for the sick","Gifts from God","Deceivers","Acceptable in moderation"],a:2},
+  {cat:"Section 10 – Health",q:"According to 1 Thessalonians 5:23, the Lord expects His people to be sanctified in which part of their being before His return?",o:["Spirit only","Soul and spirit only","Body, soul, and spirit — wholly","Mind and heart only"],a:2},
+
+  // ── Section 11: State of the Dead ──
+  {cat:"Section 11 – State of the Dead",q:"According to Genesis 2:7, a 'living soul' is produced by the union of what two elements?",o:["Spirit and soul","Breath of life and a body formed from dust","Mind and body","Divine spark and human will"],a:1},
+  {cat:"Section 11 – State of the Dead",q:"According to 1 Timothy 6:15–16, who alone possesses inherent or natural immortality?",o:["The angels","All believers","Only God (Deity)","The righteous dead"],a:2},
+  {cat:"Section 11 – State of the Dead",q:"According to Ecclesiastes 9:5, what is true of the dead?",o:["They are conscious in heaven or hell","The dead know nothing — they have no awareness","They can pray for the living","They are asleep but can be awakened by prayer"],a:1},
+  {cat:"Section 11 – State of the Dead",q:"In John 11:11–14, Jesus referred to the death of Lazarus as what?",o:["A departure to heaven","A journey to Sheol","Sleep","A punishment for sin"],a:2},
+  {cat:"Section 11 – State of the Dead",q:"According to Daniel 12:2, the dead are described as doing what?",o:["Conscious praise in heaven","Sleeping in the dust of the earth","Living as spirits","Waiting in purgatory"],a:1},
+  {cat:"Section 11 – State of the Dead",q:"According to Psalm 146:3–4, what happens to a person's thoughts at death?",o:["They are preserved in heaven","The thoughts of the departed are no more","They continue in an immortal soul","They return to God for safekeeping"],a:1},
+  {cat:"Section 11 – State of the Dead",q:"According to 1 Corinthians 15:51–55, when will the righteous receive immortality?",o:["At death","At baptism","At the second coming of Christ","At the judgment in 1844"],a:2},
+  {cat:"Section 11 – State of the Dead",q:"What does the lesson say about the common belief in 'eternal torment' (endless hell)?",o:["It is fully supported by Scripture","It is a man-made teaching based on the false idea of an immortal soul","It is an Adventist teaching","It is found in Daniel and Revelation"],a:1},
+  {cat:"Section 11 – State of the Dead",q:"According to Revelation 20:14–15, the 'second death' is what?",o:["Death at the end of a long life","The lake of fire — the ultimate end of the impenitent","A temporary punishment before heaven","A spiritual death only"],a:1},
+
+  // ── Section 12: Devotion ──
+  {cat:"Section 12 – Devotion",q:"According to John 15:5, what is the only way Christian character and fruitfulness are produced?",o:["Through rigorous self-discipline","Through church involvement alone","Through abiding in union with Christ (the vine)","Through memorisation of Scripture only"],a:2},
+  {cat:"Section 12 – Devotion",q:"According to Luke 18:1, what should Christians do and never lose heart about?",o:["Give to the poor","Attend church","Pray always","Fast regularly"],a:2},
+  {cat:"Section 12 – Devotion",q:"According to James 1:5–6, how must a person ask God for wisdom?",o:["With many words","With fasting and prayer","In faith, without doubting","Through an intercessor"],a:2},
+  {cat:"Section 12 – Devotion",q:"According to Ephesians 6:11–17, the Christian's conflict is described as warfare against what?",o:["Worldly governments","Physical enemies","The devil and spiritual powers of darkness","Personal weaknesses only"],a:2},
+  {cat:"Section 12 – Devotion",q:"According to 1 John 2:1, what provision has God made if a believer sins?",o:["No provision — they lose their salvation","They must re-baptise","Christ is our Advocate with the Father","They must confess to a priest"],a:2},
+  {cat:"Section 12 – Devotion",q:"According to 1 Thessalonians 5:17, how often should a Christian pray?",o:["Once a day in the morning","On the Sabbath only","Without ceasing — constantly","Three times a day only"],a:2},
+  // ── Lesson 18: Christ's Ministry in Heaven ──
+{cat:"Lesson 18 – Christ's Ministry in Heaven",q:"According to 1 Timothy 2:5, why can Christ ALONE serve as mediator between God and man?",o:["Because He was appointed by the apostles","Because He is both God and man","Because He died on the cross","Because He ascended visibly into heaven"],a:1},
+{cat:"Lesson 18 – Christ's Ministry in Heaven",q:"The earthly high priests of Israel were appointed to remind Israel of what?",o:["The need for daily sacrifice","The laws of Moses","Their need for a greater High Priest not limited by human weakness","The covenant God made with Abraham"],a:2},
+{cat:"Lesson 18 – Christ's Ministry in Heaven",q:"According to Hebrews 8:5, the ministry of earthly priests was related to Christ's heavenly ministry in which way?",o:["It replaced His heavenly ministry","It was superior to His ministry","It was a typical shadow of His heavenly ministry","It had no connection to His ministry"],a:2},
+{cat:"Lesson 18 – Christ's Ministry in Heaven",q:"According to Acts 17:31, what will follow Christ's priestly ministry in heaven?",o:["The millennium only","His return to earth and a work of judgment","The binding of Satan","The destruction of the wicked immediately"],a:1},
+{cat:"Lesson 18 – Christ's Ministry in Heaven",q:"The lesson states that 'by His humanity, Christ touched humanity; by His divinity, He lays hold upon the throne of God.' This quote is explaining what role of Christ?",o:["His role as Creator","His role as Judge","His role as the only qualified Mediator","His role as Prophet"],a:2},
+
+// ── Lesson 19: The Day of Atonement ──
+{cat:"Lesson 19 – The Day of Atonement",q:"The Jewish Day of Atonement was held on which specific day of the seventh month, and what was its primary purpose?",o:["The first day — to begin the new year with forgiveness","The seventh day — to celebrate God's rest","The tenth day — to bring complete separation of sin from Israel","The fifteenth day — to mark the end of harvest"],a:2},
+{cat:"Lesson 19 – The Day of Atonement",q:"The goat called Azazel in the Day of Atonement service was NOT used as a sacrifice. What does this goat represent, and why can it NOT typify Christ?",o:["It represents the Holy Spirit; it was kept alive","It represents Satan; it was not used to cleanse the sanctuary","It represents the sinner; it bore the sins of Israel","It represents God's mercy; it was released freely"],a:1},
+{cat:"Lesson 19 – The Day of Atonement",q:"The sprinkling of blood in the Most Holy Place over the Ten Commandments on the Day of Atonement typified what reality about Christ?",o:["That Christ's blood permanently removed the law","That Christ's righteousness satisfies the claims of the moral law in the judgment","That the law was only temporary and needed blood to end it","That the ark was a symbol of Christ's tomb"],a:1},
+{cat:"Lesson 19 – The Day of Atonement",q:"The cleansing of the earthly sanctuary was associated with the high priest entering which apartment, and what was stored there?",o:["The Holy Place, where the lampstand and showbread were kept","The Court, where the altar of burnt offering stood","The Most Holy Place, where the Decalogue (Ten Commandments) was kept","The outer court, where the laver of water stood"],a:2},
+{cat:"Lesson 19 – The Day of Atonement",q:"According to the lesson, the confession of ALL the sins of the children of Israel on the head of the Azazel goat signified what?",o:["That the goat died for those sins","That Satan bears responsibility for the sins he tempted people to commit","That the sins were permanently forgiven at that moment","That sin is transferred from man to animal"],a:1},
+
+// ── Lesson 20: The Cleansing of the Sanctuary ──
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"Daniel 8:14 states 'unto two thousand and three hundred days; then shall the sanctuary be cleansed.' Using the day-year principle, this prophecy spans how many literal years?",o:["2,300 months","700 years","2,300 years","1,260 years"],a:2},
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"In Daniel 8:14–27, why did Gabriel stop short of explaining the 2,300-day time period to Daniel?",o:["Because the time period was not yet relevant","Because Daniel became sick and the vision was cut short","Because Gabriel was not permitted to explain it","Because Daniel already understood it"],a:1},
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"The 70-week period of Daniel 9:24–27 is described as 'determined' or 'cut off.' What does this mean in relation to the 2,300-year prophecy?",o:["The 70 weeks run parallel to the 2,300 days separately","The 70 weeks (490 years) are cut off from the beginning of the 2,300-year period","The 70 weeks replace the 2,300-day prophecy entirely","The 70 weeks begin after the 2,300 years end"],a:1},
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"Of the three decrees permitting the Jews to return from captivity, which one is used as the starting date of the 2,300-year prophecy and why?",o:["Cyrus (537 B.C.) — because he was the first to send them back","Darius (519 B.C.) — because he renewed Cyrus's command","Artaxerxes (457 B.C.) — because it was the first to grant full civil and religious autonomy to the Jewish state","Nebuchadnezzar — because he first conquered Jerusalem"],a:2},
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"According to Daniel 9:25–27, in the 'midst of the week' (the 70th week), what specific event was to occur?",o:["Jerusalem would be rebuilt","The Messiah would be anointed at baptism","Christ would be crucified","The special privileges of Israel would cease"],a:2},
+{cat:"Lesson 20 – The Cleansing of the Sanctuary",q:"Starting from 457 B.C. and adding 2,300 years, in what year did the cleansing of the heavenly sanctuary begin, and what does this mean for Christ's priestly ministry?",o:["1798 — Christ began His final return preparations","1833 — Christ entered the Most Holy Place for the first time","1844 — Christ entered upon the last phase of His mediatorial work as High Priest","1863 — Christ began the investigative judgment after the SDA Church was organized"],a:2},
+
+// ── Lesson 26: The Setting Up of Christ's Kingdom ──
+{cat:"Lesson 26 – Setting Up of Christ's Kingdom",q:"In Nebuchadnezzar's dream, each part of the image represented a successive world empire. Which empire is represented by the THIGHS AND BELLY of brass?",o:["Rome","Babylon","Medo-Persia","Grecia"],a:3},
+{cat:"Lesson 26 – Setting Up of Christ's Kingdom",q:"The lesson notes that iron does not mix with clay in the feet of the image. This accurately predicted what specific characteristic of post-Roman Europe?",o:["That Europe would always be at war","That Europe could not be permanently reunited, despite attempts by conquest or marriage","That Europe would eventually unite under one currency","That Europe would fall to Eastern invaders"],a:1},
+{cat:"Lesson 26 – Setting Up of Christ's Kingdom",q:"According to the lesson, Babylon fell when the soldiers of Cyrus first appeared in the city. Where exactly did they make their presence known, catching Belshazzar off guard?",o:["At the city gates during a military siege","In the vestibule of the royal palace, falling upon the royal guards","At the river Euphrates which they had diverted","At the temple of Marduk during a religious ceremony"],a:1},
+{cat:"Lesson 26 – Setting Up of Christ's Kingdom",q:"The great stone in Daniel 2:44–45 that smashes the image and fills the whole earth represents what, and when does this occur?",o:["The Adventist Church, established in 1863","Christ's first coming in Bethlehem","The setting up of God's eternal kingdom at Christ's Second Coming","The conversion of all world nations to Christianity"],a:2},
+{cat:"Lesson 26 – Setting Up of Christ's Kingdom",q:"The lesson notes that the Roman historian Gibbon used the very imagery of Daniel 2 to describe Rome. Which specific material of the image did he reference when describing Rome's conquests?",o:["Gold, representing Rome's wealth","Silver, representing Rome's diplomacy","Iron, describing Rome as an 'iron monarchy'","Clay, describing Rome's internal weakness"],a:2},
+
+// ── Lesson 27: Empires of Prophecy ──
+{cat:"Lesson 27 – Empires of Prophecy",q:"In Daniel 7, the bear that represented Medo-Persia was described as raising itself on ONE side. What does this physical detail of the vision specifically symbolize?",o:["That Medo-Persia would fall quickly","That it was a cruel and bloodthirsty power","That one power (Persia) was stronger than the other (Media) in the dual monarchy","That it had only one surviving kingdom after conquest"],a:2},
+{cat:"Lesson 27 – Empires of Prophecy",q:"The leopard in Daniel 7 had FOUR wings and FOUR heads, representing Grecia. What do the four heads specifically represent?",o:["The four gospels written during the Greek period","Alexander's four military campaigns","The four divisions of Alexander's empire among his generals after his death","The four Greek city-states that resisted Alexander"],a:2},
+{cat:"Lesson 27 – Empires of Prophecy",q:"In Daniel 7, the ten horns of the fourth beast match the ten toes of the image in Daniel 2. The lesson identifies these ten horns as what?",o:["Ten future world superpowers","Ten tribes of Israel in the last days","Ten main kingdoms that arose out of Rome's divided empire — the modern nations of Europe","Ten popes of the medieval period"],a:2},
+{cat:"Lesson 27 – Empires of Prophecy",q:"The little horn of Daniel 7 is said to have come up AFTER the ten horns and AMONG them. According to the lesson, what does this geographic and chronological detail confirm about the power it represents?",o:["That it is a future Asian power rising after all others","That it rose in the European region after Rome's division — pointing to the Papacy","That it is the United States rising after Europe's kingdoms","That it is an Islamic power rising after the fall of Rome"],a:1},
+{cat:"Lesson 27 – Empires of Prophecy",q:"According to the lesson, Alexander the Great died after a drinking spree at only 32 years of age in 323 B.C. His death led to the four-way division of his empire. Which general received Egypt, Lydia, Arabia, and Palestine?",o:["Cassander","Lysimachus","Seleucus","Ptolemy"],a:3},
+
+// ── Lesson 32: The Change of the Sabbath ──
+{cat:"Lesson 32 – The Change of the Sabbath",q:"Daniel 7:25 prophesied a power would attempt to change 'the times and the law.' Why does the lesson point specifically to the Sabbath commandment as the target of this change?",o:["Because the Sabbath is the longest commandment","Because it is the only commandment in the Decalogue that deals with time","Because the Sabbath was the most frequently broken commandment","Because it was added to the law after Sinai"],a:1},
+{cat:"Lesson 32 – The Change of the Sabbath",q:"The lesson quotes a Catholic catechism: 'Which is the Sabbath day? Saturday.' It then asks why Catholics observe Sunday. What reason is given in that catechism?",o:["Because Christ commanded it at the resurrection","Because the apostles changed it at Pentecost","Because the Catholic Church in the Council of Laodicea (A.D. 336) transferred solemnity from Saturday to Sunday","Because Sunday was always the original Sabbath"],a:2},
+{cat:"Lesson 32 – The Change of the Sabbath",q:"According to the lesson, what THREE drastic changes did the Roman Catholic Church make to the Ten Commandments in her catechisms?",o:["Added three new commandments, removed the Sabbath, and changed the first","Omitted the second commandment, divided the tenth into two, and altered the fourth to remove which day is the Sabbath","Replaced the Sabbath with Sunday, removed the first, and divided the fourth","Removed the third, combined the ninth and tenth, and added the Sabbath on Sunday"],a:1},
+{cat:"Lesson 32 – The Change of the Sabbath",q:"The papal claims quoted in the lesson state: 'The pope can modify divine law.' On what basis does the papacy make this claim?",o:["Because the Pope was appointed by Christ at Pentecost","Because his power is not of man but of God, and he acts as vicegerent of God on earth","Because the Council of Nicaea granted him this authority","Because Scripture gives the Bishop of Rome authority over all churches"],a:1},
+{cat:"Lesson 32 – The Change of the Sabbath",q:"The lesson quotes a Catholic source that says Protestant observance of Sunday is 'an homage they pay, in spite of themselves, to the authority of the [Catholic] church.' What is the deeper implication of this statement?",o:["That Protestants have always agreed with the Catholic Church on the Sabbath","That Sunday observance by Protestants actually acknowledges Catholic authority rather than Scripture alone","That the Reformation successfully restored the Sabbath to its proper place","That all churches secretly observe Saturday as the true Sabbath"],a:1},
+
+// ── Lesson 33: Seal of God, Mark of the Beast ──
+{cat:"Lesson 33 – Seal of God & Mark of the Beast",q:"According to the lesson, the beast of Revelation 13:1 has ten horns, which connects it to the fourth beast of Daniel 7. This beast power extends into the last days in what specific form?",o:["As the revived Roman Empire under a single emperor","As Papal Rome — Rome in its papal form","As apostate Protestantism in America","As a future world government based in Rome"],a:1},
+{cat:"Lesson 33 – Seal of God & Mark of the Beast",q:"The lesson states the papacy received a 'deadly wound' in 1798, but that it would be healed. What specific event in 1798 constituted this deadly wound?",o:["The Protestant Reformation","The French Revolution removing papal lands","Napoleon Bonaparte ordering the abolition of the papacy and the pope being dethroned","The Council of Trent removing papal supremacy"],a:2},
+{cat:"Lesson 33 – Seal of God & Mark of the Beast",q:"According to Revelation 13:5, the period of the beast's special supremacy was 42 months. Using the day-year principle, from A.D. 538 to when does this period extend?",o:["A.D. 1776","A.D. 1789","A.D. 1798","A.D. 1800"],a:2},
+{cat:"Lesson 33 – Seal of God & Mark of the Beast",q:"The lesson contrasts two groups in the third angel's message (Revelation 14:9–14). Both groups are professed Christians. What is described as the BASIC distinction between them?",o:["One group has been baptized; the other has not","One group preaches the gospel; the other preaches tradition","Their attitude toward the fourth commandment — the Sabbath vs. a substitute day","One group believes in Christ's return; the other does not"],a:2},
+{cat:"Lesson 33 – Seal of God & Mark of the Beast",q:"Revelation 13:11 describes a beast with two horns like a lamb but speaking like a dragon, interpreted by Adventists as apostate Protestantism. According to the lesson, what will this power ultimately do?",o:["Abolish all religion worldwide","Make an image to the first beast — forming a church-state system that coerces worship","Replace the Papacy as the dominant world religion","Restore the original Sabbath and unite all Christians"],a:1},
+];
+
+// ════════════════════════
+// STATE
+// ════════════════════════
+let candName = '', candDistrict = '';
+let selectedCount = 50;
+let activeQ = [];
+let userAns = [];
+let currentQ = 0;
+let timerInt = null;
+let secsLeft = 1800;
+let submitted = false;
+
+function setCount(n, btn) {
+  selectedCount = n;
+  document.querySelectorAll('.cnt-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ════════════════════════
+// START
+// ════════════════════════
+function startQuiz() {
+  candName = document.getElementById('cand-name').value.trim();
+  candDistrict = document.getElementById('cand-district').value;
+  let ok = true;
+  document.getElementById('err-name').textContent = '';
+  document.getElementById('err-district').textContent = '';
+  if (!candName) { document.getElementById('err-name').textContent = 'Please enter your full name.'; ok = false; }
+  if (!candDistrict) { document.getElementById('err-district').textContent = 'Please select your district.'; ok = false; }
+  if (!ok) return;
+
+  const count = selectedCount >= ALL_Q.length ? ALL_Q.length : selectedCount;
+  activeQ = shuffle(ALL_Q).slice(0, count);
+  userAns = new Array(activeQ.length).fill(null);
+  currentQ = 0;
+  submitted = false;
+  secsLeft = count <= 25 ? 900 : count <= 50 ? 1800 : count <= 100 ? 3600 : 5400;
+
+  document.getElementById('cover-page').style.display = 'none';
+  document.getElementById('quiz-page').style.display = 'block';
+  document.getElementById('nav-panel').style.display = 'block';
+  document.getElementById('header-sub').textContent = candName + ' · ' + candDistrict;
+
+  buildGrid();
+  renderQ();
+  startTimer();
+}
+
+// ════════════════════════
+// TIMER
+// ════════════════════════
+function startTimer() {
+  const el = document.getElementById('timer-val');
+  function fmt() {
+    const m = Math.floor(secsLeft / 60), s = secsLeft % 60;
+    el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+  fmt();
+  timerInt = setInterval(() => {
+    secsLeft--;
+    fmt();
+    if (secsLeft <= 300) el.classList.add('warn');
+    if (secsLeft <= 0) { clearInterval(timerInt); submitQuiz(); }
+  }, 1000);
+}
+
+// ════════════════════════
+// RENDER
+// ════════════════════════
+function renderQ() {
+  const q = activeQ[currentQ];
+  document.getElementById('q-badge').textContent = `Q ${currentQ + 1} / ${activeQ.length}`;
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('q-text').textContent = q.q;
+
+  const optsEl = document.getElementById('opts');
+  optsEl.innerHTML = '';
+  ['A','B','C','D'].forEach((lt, i) => {
+    const lbl = document.createElement('label');
+    lbl.className = 'opt' + (userAns[currentQ] === i ? ' sel' : '');
+    lbl.innerHTML = `<input type="radio" name="opt" value="${i}">
+      <span class="ok">${lt}</span>
+      <span class="ot">${q.o[i]}</span>`;
+    lbl.addEventListener('click', () => selectAns(i));
+    optsEl.appendChild(lbl);
+  });
+
+  updateGrid();
+  updateProg();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectAns(idx) {
+  userAns[currentQ] = idx;
+  document.querySelectorAll('.opt').forEach((l, i) => l.classList.toggle('sel', i === idx));
+  updateGrid();
+}
+
+// ════════════════════════
+// NAV
+// ════════════════════════
+function navigate(dir) {
+  const n = currentQ + dir;
+  if (n < 0 || n >= activeQ.length) return;
+  currentQ = n;
+  renderQ();
+}
+
+function skipQ() {
+  if (userAns[currentQ] === null) userAns[currentQ] = -1;
+  navigate(1);
+}
+
+function jumpTo(idx) { currentQ = idx; renderQ(); }
+
+function buildGrid() {
+  const g = document.getElementById('nav-grid');
+  g.innerHTML = '';
+  activeQ.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'nb';
+    b.textContent = i + 1;
+    b.id = `nb${i}`;
+    b.addEventListener('click', () => jumpTo(i));
+    g.appendChild(b);
+  });
+}
+
+function updateGrid() {
+  activeQ.forEach((_, i) => {
+    const b = document.getElementById(`nb${i}`);
+    if (!b) return;
+    b.className = 'nb';
+    if (userAns[i] === -1) b.classList.add('ski');
+    else if (userAns[i] !== null) b.classList.add('ans');
+    if (i === currentQ) b.classList.add('cur');
+  });
+}
+
+function updateProg() {
+  const done = userAns.filter(a => a !== null && a !== -1).length;
+  document.getElementById('prog-fill').style.width = (done / activeQ.length * 100) + '%';
+}
+
+// ════════════════════════
+// SUBMIT
+// ════════════════════════
+function confirmSubmit() {
+  const u = userAns.filter(a => a === null).length;
+  let msg = 'Submit your examination now?';
+  if (u > 0) msg += `\n\n⚠ ${u} question(s) unanswered.`;
+  if (confirm(msg)) submitQuiz();
+}
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+
+  let correct = 0, wrong = 0, skipped = 0;
+  activeQ.forEach((q, i) => {
+    if (userAns[i] === null || userAns[i] === -1) skipped++;
+    else if (userAns[i] === q.a) correct++;
+    else wrong++;
+  });
+
+  const pct = Math.round(correct / activeQ.length * 100);
+
+  document.getElementById('quiz-page').style.display = 'none';
+  document.getElementById('nav-panel').style.display = 'none';
+  document.getElementById('results-page').style.display = 'block';
+
+  document.getElementById('res-name').textContent = candName;
+  document.getElementById('res-dist').textContent = candDistrict;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('s-correct').textContent = correct;
+  document.getElementById('s-wrong').textContent = wrong;
+  document.getElementById('s-skipped').textContent = skipped;
+  document.getElementById('score-ring').style.background =
+    `conic-gradient(#f0c040 ${pct * 3.6}deg, rgba(240,192,64,0.15) ${pct * 3.6}deg)`;
+
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = '';
+  activeQ.forEach((q, i) => {
+    const ua = userAns[i];
+    let cls = 's', stxt = '↷ Skipped';
+    if (ua !== null && ua !== -1) {
+      cls = ua === q.a ? 'c' : 'w';
+      stxt = ua === q.a ? '✓ Correct' : '✗ Wrong';
+    }
+    let ah = '';
+    if (ua !== null && ua !== -1 && ua !== q.a) {
+      ah = `<div class="ra yw">Your answer: ${q.o[ua]}</div><div class="ra co">Correct answer: ${q.o[q.a]}</div>`;
+    } else if (ua === q.a) {
+      ah = `<div class="ra yc">✓ ${q.o[q.a]}</div>`;
+    } else {
+      ah = `<div class="ra co">Correct answer: ${q.o[q.a]}</div>`;
+    }
+    const div = document.createElement('div');
+    div.className = `rq ${cls}`;
+    div.innerHTML = `
+      <div class="rqt">
+        <span class="rqn">Q${i+1} · ${q.cat}</span>
+        <span class="rqs ${cls}">${stxt}</span>
+      </div>
+      <div class="rqq">${q.q}</div>
+      ${ah}
+      <div class="rref">📘 ${q.cat}</div>`;
+    rl.appendChild(div);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retake() {
+  submitted = false;
+  clearInterval(timerInt);
+  document.getElementById('results-page').style.display = 'none';
+  document.getElementById('cover-page').style.display = 'flex';
+  document.getElementById('timer-val').textContent = '30:00';
+  document.getElementById('timer-val').classList.remove('warn');
+}
+
+function toggleDark() {
+  document.body.classList.toggle('dark');
+}
+</script>
+</body>
+</html>
